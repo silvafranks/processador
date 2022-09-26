@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class TransacaoController {
 
     private final ContaServiceMutation contaServiceMutation;
-    private  final TransacaoRepository transacaoRepository;
+    private final TransacaoRepository transacaoRepository;
 
     @PatchMapping(value = "/{idCliente}/{idConta}")
     public ResponseEntity depositarEmUmaConta(@PathVariable Integer idCliente,
@@ -48,7 +48,7 @@ public class TransacaoController {
                                                       idClienteEntrada,
                                                       idContaEntrada,
                                                       valorTransferencia);
-      return   ResponseEntity.ok().build();
+      return  ResponseEntity.ok().build();
 
     }
 }

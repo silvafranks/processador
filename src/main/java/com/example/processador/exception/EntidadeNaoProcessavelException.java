@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class EntidadeNaoProcessavelException extends RuntimeException{
 
     public EntidadeNaoProcessavelException(Object entidade){
-        super(String.format("%s não encontrada: %s", entidade.toString()));
+        super(String.format("%s não processável", entidade.toString()));
     }
 }

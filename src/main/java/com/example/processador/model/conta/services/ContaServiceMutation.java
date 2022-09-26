@@ -1,6 +1,6 @@
 package com.example.processador.model.conta.services;
 
-import com.example.processador.Utils.BuscarConta;
+import com.example.processador.Utils.ContaUtils;
 import com.example.processador.exception.EntidadeNaoEncontradaException;
 import com.example.processador.exception.EntidadeNaoProcessavelException;
 import com.example.processador.model.cliente.Cliente;
@@ -15,9 +15,9 @@ import com.example.processador.model.transacao.Transacao;
 import com.example.processador.model.transacao.TransacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import javax.transaction.Transactional;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 
@@ -36,7 +36,7 @@ public class ContaServiceMutation {
     @Autowired
     private TransacaoRepository transacaoRepository;
 
-    BuscarConta buscarConta = new BuscarConta();
+    ContaUtils buscarConta = new ContaUtils();
 
     @Transactional
     public void alterarValorConta(Integer idcliente, Integer idConta, ContaMutationDto novoValor){
@@ -46,7 +46,7 @@ public class ContaServiceMutation {
         if (cliente.isEmpty()){
             throw new EntidadeNaoEncontradaException("Objeto cliente", cliente);
         }
-        BuscarConta buscarConta = new BuscarConta();
+        ContaUtils buscarConta = new ContaUtils();
 
         Optional<Patrimonio> patrimonio = patrimonioRepository.findById(cliente.get().getPatrimonio().getId());
 
@@ -89,9 +89,10 @@ public class ContaServiceMutation {
         novaTransacao.setIdContaSaida(idContaSaida);
         novaTransacao.setValorTransferencia(valorTransferencia);
         novaTransacao.setIdcontaEntrada(idContaEntrada);
+
         transacaoRepository.saveAndFlush(novaTransacao);
     }
-    @Transactional(Transactional.TxType.REQUIRED)
+    @org.springframework.transaction.annotation.Transactional
     public void transferenciaEntreContas(Integer idClienteSaida,
                                          Integer idContaSaida,
                                          Integer idClienteEntrada,

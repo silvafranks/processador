@@ -13,7 +13,7 @@ import java.time.OffsetDateTime;
 @Data
 public class TransacaoCriacaoDto implements Serializable {
     @NotBlank
-    private final Double valorTransferencia;
+    private  Double valorTransferencia;
     @NotBlank
-    private final OffsetDateTime dataTransacao;
+    private  OffsetDateTime dataTransacao;
 }

@@ -1,5 +1,6 @@
 package com.example.processador.model.conta;
 
+import com.example.processador.model.conta.dto.Banco;
 import com.example.processador.model.patrimonio.Patrimonio;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -23,7 +24,8 @@ public class Conta implements Comparable<Conta> {
     private Integer idConta;
 
     @Column(nullable = false)
-    private String nomeFantasia;
+    @Enumerated(EnumType.STRING)
+    private Banco banco;
 
     @Column(nullable = false)
     private Double valorDisponivel;

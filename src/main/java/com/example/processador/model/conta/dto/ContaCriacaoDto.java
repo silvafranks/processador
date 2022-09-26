@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.PastOrPresent;
 import java.io.Serializable;
@@ -20,7 +22,8 @@ public class ContaCriacaoDto implements Serializable {
     private Double valorDisponivel;
 
     @Column(nullable = false)
-    private String nomeFantasia;
+    @Enumerated(EnumType.STRING)
+    private Banco banco;
 
     @Column(nullable = false)
     @Past
