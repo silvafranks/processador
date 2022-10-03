@@ -1,5 +1,6 @@
 package com.example.processador.model.conta;
 
+import com.example.processador.model.cliente.Cliente;
 import com.example.processador.model.conta.dto.Banco;
 import com.example.processador.model.patrimonio.Patrimonio;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -9,14 +10,12 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Past;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Optional;
-
-@Getter
-@Setter
 @Entity
 @Data
-@Table(name = "conta")
+@Table(name = "contas")
 public class Conta implements Comparable<Conta> {
 
     @Id
@@ -28,7 +27,13 @@ public class Conta implements Comparable<Conta> {
     private Banco banco;
 
     @Column(nullable = false)
-    private Double valorDisponivel;
+    private BigDecimal valorDisponivel;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id",nullable = false)
+    @JsonIgnore
+    @JsonIgnoreProperties
+    private Cliente cliente;
 
     @Column(nullable = false)
     @Past

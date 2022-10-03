@@ -1,5 +1,6 @@
 package com.example.processador.Utils;
 
+import com.example.processador.exception.EntidadeConflitoException;
 import com.example.processador.exception.EntidadeNaoEncontradaException;
 import com.example.processador.exception.EntidadeNaoProcessavelException;
 import com.example.processador.model.cliente.Cliente;
@@ -12,30 +13,25 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ContaUtils {
 
-    ;
+    public Conta filtrarContaPorCliente(Cliente cliente, Integer idConta) {
 
-
-
-    public Conta filtrarContaPorCliente(Patrimonio patrimonio, Integer idConta) {
-
-        return patrimonio.getContas().stream().filter(conta -> conta.getIdConta() == idConta)
+        return cliente.getConta().stream().filter(conta -> conta.getIdConta() == idConta)
                 .findAny().orElseThrow(() -> new EntidadeNaoEncontradaException("conta", Conta.class));
     }
 
-    public void VerificarBanco(Cliente cliente,ContaCriacaoDto contaCriacaoDto ){
+    public void VerificarBanco(Cliente cliente, ContaCriacaoDto contaCriacaoDto) {
 
-        List<Conta> contas = cliente.getPatrimonio().getContas();
-        System.out.println("CONTAS  "+ contas);
-        if (!contas.isEmpty()){
-            for (Conta c : contas) {
-                if (c.getBanco().equals(contaCriacaoDto.getBanco())) {
-                    throw new EntidadeNaoProcessavelException(cliente);
-                }
+        List<Conta> contas = cliente.getConta();
+
+        contas.forEach(i->{
+            if (i.getBanco().equals(contaCriacaoDto.getBanco())){
+                throw new EntidadeConflitoException(contaCriacaoDto, "Cliente já contém esse banco");
             }
-        }
+        });
     }
 }

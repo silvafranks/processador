@@ -28,6 +28,4 @@ public class ClienteCriacaoDto implements Serializable {
 
     private Integer cep;
 
-    @NotNull
-    private Patrimonio patrimonio;
 }

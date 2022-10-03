@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 /**
@@ -13,7 +14,7 @@ import java.time.OffsetDateTime;
 @Data
 public class TransacaoCriacaoDto implements Serializable {
     @NotBlank
-    private  Double valorTransferencia;
+    private BigDecimal valorTransferencia;
     @NotBlank
     private  OffsetDateTime dataTransacao;
 }

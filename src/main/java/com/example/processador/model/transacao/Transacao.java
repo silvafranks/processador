@@ -1,9 +1,13 @@
 package com.example.processador.model.transacao;
 
+import com.example.processador.model.cliente.Cliente;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.OffsetDateTime;
 
@@ -18,10 +22,9 @@ public class Transacao {
 
     @Column
     @NotNull
-    private Double valorTransferencia;
+    private BigDecimal valorTransferencia;
 
     @Column
-    @NotNull
     private Integer idContaSaida;
 
     @Column
@@ -31,5 +34,11 @@ public class Transacao {
     @Column
     @NotNull
     private OffsetDateTime dataTransacao;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    @JsonIgnore
+    @JsonIgnoreProperties
+    private Cliente cliente;
 }
 

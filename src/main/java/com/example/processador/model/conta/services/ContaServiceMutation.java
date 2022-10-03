@@ -7,8 +7,6 @@ import com.example.processador.model.cliente.Cliente;
 import com.example.processador.model.cliente.ClienteRepository;
 import com.example.processador.model.conta.Conta;
 import com.example.processador.model.conta.ContaRepository;
-import com.example.processador.model.conta.dto.ContaMutationDto;
-import com.example.processador.model.patrimonio.Patrimonio;
 import com.example.processador.model.patrimonio.PatrimonioRepository;
 import com.example.processador.model.transacao.Dto.TransacaoCriacaoDto;
 import com.example.processador.model.transacao.Transacao;
@@ -18,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 
@@ -36,25 +35,30 @@ public class ContaServiceMutation {
     @Autowired
     private TransacaoRepository transacaoRepository;
 
-    ContaUtils buscarConta = new ContaUtils();
+    private ContaUtils buscarConta = new ContaUtils();
 
     @Transactional
-    public void alterarValorConta(Integer idcliente, Integer idConta, ContaMutationDto novoValor){
+    public void depositar(Integer idCliente, Integer idConta, TransacaoCriacaoDto novoValor){
 
-        Optional<Cliente> cliente = clienteRepository.findById(idcliente);
+        Optional<Cliente> cliente = clienteRepository.findById(idCliente);
 
         if (cliente.isEmpty()){
             throw new EntidadeNaoEncontradaException("Objeto cliente", cliente);
         }
-        ContaUtils buscarConta = new ContaUtils();
 
-        Optional<Patrimonio> patrimonio = patrimonioRepository.findById(cliente.get().getPatrimonio().getId());
+        Conta contaFiltrada = buscarConta.filtrarContaPorCliente(cliente.get(), idConta);
 
+        System.out.println(contaFiltrada.getValorDisponivel());
 
-        Conta contaFiltrada = buscarConta.filtrarContaPorCliente(patrimonio.get(), idConta);
+        Transacao novaTransacao = new Transacao();
 
+        novaTransacao.setDataTransacao(OffsetDateTime.now());
+        novaTransacao.setValorTransferencia(novoValor.getValorTransferencia());
+        novaTransacao.setIdcontaEntrada(idConta);
+        novaTransacao.setCliente(cliente.get());
+        transacaoRepository.saveAndFlush(novaTransacao);
 
-        contaFiltrada.setValorDisponivel(novoValor.getValorDisponivel());
+        contaFiltrada.setValorDisponivel(contaFiltrada.getValorDisponivel().add(novoValor.getValorTransferencia()));
     }
 
     @Transactional
@@ -66,22 +70,21 @@ public class ContaServiceMutation {
             throw new EntidadeNaoEncontradaException("Objeto cliente", cliente);
         }
 
-        Optional<Patrimonio> patrimonio = patrimonioRepository.findById(cliente.get().getPatrimonio().getId());
+        Conta contaSaida = buscarConta.filtrarContaPorCliente(cliente.get(), idContaSaida);
+        BigDecimal valorDisponivel = contaSaida.getValorDisponivel();
+        BigDecimal valorTransferencia = transacaoCriacaoDto.getValorTransferencia();
 
-        Conta contaSaida = buscarConta.filtrarContaPorCliente(patrimonio.get(), idContaSaida);
-        Double valorDisponivel = contaSaida.getValorDisponivel();
-        Double valorTransferencia = transacaoCriacaoDto.getValorTransferencia();
-
-        if ( valorTransferencia > valorDisponivel){
+        if ( valorTransferencia.compareTo(valorDisponivel)> 0){
             throw new EntidadeNaoProcessavelException(valorDisponivel);
         }
 
-        contaSaida.setValorDisponivel(valorDisponivel - valorTransferencia);
-        Conta contaEntrada = buscarConta.filtrarContaPorCliente(patrimonio.get(), idContaEntrada);
+        contaSaida.setValorDisponivel(valorDisponivel.subtract(valorTransferencia));
+        Conta contaEntrada = buscarConta.filtrarContaPorCliente(cliente.get(), idContaEntrada);
 
-        Double valorDisponivelContaEntrada = contaEntrada.getValorDisponivel();
 
-        contaEntrada.setValorDisponivel(valorDisponivelContaEntrada + valorTransferencia);
+        BigDecimal valorDisponivelContaEntrada = contaEntrada.getValorDisponivel();
+
+        contaEntrada.setValorDisponivel(valorDisponivelContaEntrada.add(valorTransferencia));
 
         Transacao novaTransacao = new Transacao();
 
@@ -89,15 +92,16 @@ public class ContaServiceMutation {
         novaTransacao.setIdContaSaida(idContaSaida);
         novaTransacao.setValorTransferencia(valorTransferencia);
         novaTransacao.setIdcontaEntrada(idContaEntrada);
+        novaTransacao.setCliente(cliente.get());
 
         transacaoRepository.saveAndFlush(novaTransacao);
     }
     @org.springframework.transaction.annotation.Transactional
-    public void transferenciaEntreContas(Integer idClienteSaida,
-                                         Integer idContaSaida,
-                                         Integer idClienteEntrada,
-                                         Integer idContaEntrada,
-                                         TransacaoCriacaoDto valorTransferencia) {
+    public void transferenciaEntreClientes(Integer idClienteSaida,
+                                           Integer idContaSaida,
+                                           Integer idClienteEntrada,
+                                           Integer idContaEntrada,
+                                           TransacaoCriacaoDto valorTransferencia) {
 
 
         Optional<Cliente> clienteSaida = clienteRepository.findById(idClienteSaida);
@@ -110,14 +114,23 @@ public class ContaServiceMutation {
             throw new EntidadeNaoEncontradaException("Id do cliente", clienteEntrada.get());
         }
 
-        Conta contaSaida = buscarConta.filtrarContaPorCliente(clienteSaida.get().getPatrimonio(), idContaSaida);
-        Conta contaEntrada = buscarConta.filtrarContaPorCliente(clienteEntrada.get().getPatrimonio(), idContaEntrada);
+        Conta contaSaida = buscarConta.filtrarContaPorCliente(clienteSaida.get(), idContaSaida);
+        Conta contaEntrada = buscarConta.filtrarContaPorCliente(clienteEntrada.get(), idContaEntrada);
 
-        if (valorTransferencia.getValorTransferencia() > contaSaida.getValorDisponivel()){
+        if (valorTransferencia.getValorTransferencia().compareTo(contaSaida.getValorDisponivel()) > 0 ){
             throw new EntidadeNaoProcessavelException(contaSaida);
         }
-        contaSaida.setValorDisponivel(contaSaida.getValorDisponivel() - valorTransferencia.getValorTransferencia());
-        contaEntrada.setValorDisponivel(contaEntrada.getValorDisponivel() + valorTransferencia.getValorTransferencia());
+        Transacao novaTransacao = new Transacao();
+
+        novaTransacao.setDataTransacao(OffsetDateTime.now());
+        novaTransacao.setValorTransferencia(valorTransferencia.getValorTransferencia());
+        novaTransacao.setIdcontaEntrada(contaEntrada.getIdConta());
+        novaTransacao.setIdContaSaida(contaSaida.getIdConta());
+        novaTransacao.setCliente(clienteEntrada.get());
+        transacaoRepository.saveAndFlush(novaTransacao);
+
+        contaSaida.setValorDisponivel(contaSaida.getValorDisponivel().subtract(valorTransferencia.getValorTransferencia()));
+        contaEntrada.setValorDisponivel(contaEntrada.getValorDisponivel().add(valorTransferencia.getValorTransferencia()));
 
     }
 }

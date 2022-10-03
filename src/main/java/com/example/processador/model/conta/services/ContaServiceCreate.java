@@ -41,15 +41,15 @@ public class ContaServiceCreate {
         }
 
         Optional<Cliente> cliente = clienteRepository.findById(idCliente);
-        Optional<Patrimonio> patrimonio = patrimonioRepository.findById(cliente.get().getPatrimonio().getId());
-
-        contaUtils.VerificarBanco(cliente.get(), contaCriacaoDto);
+       contaUtils.VerificarBanco(cliente.get(), contaCriacaoDto);
 
         Conta conta = new Conta();
               conta.setUltimaMovimentacao(contaCriacaoDto.getUltimaMovimentacao());
               conta.setValorDisponivel(contaCriacaoDto.getValorDisponivel());
               conta.setBanco(contaCriacaoDto.getBanco());
+              conta.setCliente(cliente.get());
 
-        patrimonio.get().getContas().add(conta);
+        cliente.get().getConta().add(conta);
+
     }
 }

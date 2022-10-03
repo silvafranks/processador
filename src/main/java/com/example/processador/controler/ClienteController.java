@@ -19,8 +19,8 @@ public class ClienteController {
 
     @PostMapping
     public ResponseEntity<?> criarCliente(@RequestBody ClienteCriacaoDto clienteCriacaoDto) {
-        System.out.println(clienteCriacaoDto);
-        return ResponseEntity.ok(clienteServiceCreate.criarCliente(clienteCriacaoDto));
+        clienteServiceCreate.criarCliente(clienteCriacaoDto);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping
@@ -33,4 +33,12 @@ public class ClienteController {
     public  ResponseEntity<?> buscarCliente(@PathVariable Integer id){
         return ResponseEntity.ok(clienteQueryService.BuscarPorId(id));
     }
+
+//    @GetMapping("{idCliente}/totalpatrimonio/")
+//    public ResponseEntity totalPatrimonio(@PathVariable Integer idCliente){
+//
+//        return  ResponseEntity.ok(clienteQueryService.BuscarPatrimonios(idCliente));
+//
+//    }
+
 }

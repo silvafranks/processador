@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 public class ContaRespostaDto implements Serializable {
@@ -17,8 +18,10 @@ public class ContaRespostaDto implements Serializable {
     private String nomeFantasia;
 
     @Column(nullable = false)
-    private Integer valorDisponivel;
+    private BigDecimal valorDisponivel;
 
     @Column(nullable = false)
     private OffsetDateTime ultimaMovimentacao;
+
+
 }

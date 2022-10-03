@@ -29,34 +29,15 @@ public class ContaController {
     @PostMapping(value = "/{idCliente}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> criarConta(@PathVariable Integer idCliente,
                                         @RequestBody ContaCriacaoDto contaCriacaoDto){
-        System.out.println(contaCriacaoDto);
-
         contaService.criarConta(idCliente,contaCriacaoDto);
-
 
         return ResponseEntity.ok().build();
     }
 
     @GetMapping(value = "/{idCliente}")
-    public ResponseEntity<Optional<Patrimonio>> buscarConta(@PathVariable Integer idCliente ){
+    public ResponseEntity<?> buscarContas(@PathVariable Integer idCliente ){
 
         return ResponseEntity.ok(contaServiceQuery.contas(idCliente));
     }
 
-//    @PatchMapping(value = "/{idCliente}/{idConta}")
-//    public ResponseEntity depositarEmUmaConta(@PathVariable Integer idCliente,
-//                                              @PathVariable Integer idConta,
-//                                              @RequestBody ContaMutationDto valor){
-//        contaServiceMutation.alterarValorConta(idCliente,idConta,valor);
-//        return ResponseEntity.ok().build();
-//    }
-//
-//    @PatchMapping(value = "/{idcliente}/{idcontaEntrada}/{idcontasaida}")
-//    public  ResponseEntity trasferirEntreContas(@PathVariable Integer idcliente,
-//                                                @PathVariable Integer idContaEntrada,
-//                                                @PathVariable Integer idContaSaida,
-//                                                @RequestBody ValorTransferencia valorTransferencia
-//                                                ){
-//
-//    }
 }

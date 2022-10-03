@@ -6,12 +6,13 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
 @Data
 public class ContaMutationDto implements Serializable {
     @Column(nullable = false)
-    private Double valorDisponivel;
+    private BigDecimal valorDisponivel;
 
 }

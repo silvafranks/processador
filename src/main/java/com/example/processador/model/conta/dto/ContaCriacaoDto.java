@@ -10,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.PastOrPresent;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 @Getter
@@ -19,7 +20,7 @@ public class ContaCriacaoDto implements Serializable {
 
 
     @Column(nullable = false)
-    private Double valorDisponivel;
+    private BigDecimal valorDisponivel;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
