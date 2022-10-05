@@ -9,8 +9,10 @@ import com.example.processador.model.conta.Conta;
 import com.example.processador.model.conta.ContaRepository;
 import com.example.processador.model.patrimonio.PatrimonioRepository;
 import com.example.processador.model.transacao.Dto.TransacaoCriacaoDto;
+import com.example.processador.model.transacao.Dto.TypeTransacao;
 import com.example.processador.model.transacao.Transacao;
 import com.example.processador.model.transacao.TransacaoRepository;
+import com.example.processador.model.transacao.service.TransacaoServiceCreate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +37,9 @@ public class ContaServiceMutation {
     @Autowired
     private TransacaoRepository transacaoRepository;
 
+    @Autowired
+    private TransacaoServiceCreate transacaoServiceCreate;
+
     private ContaUtils buscarConta = new ContaUtils();
 
     @Transactional
@@ -50,15 +55,14 @@ public class ContaServiceMutation {
 
         System.out.println(contaFiltrada.getValorDisponivel());
 
-        Transacao novaTransacao = new Transacao();
-
-        novaTransacao.setDataTransacao(OffsetDateTime.now());
-        novaTransacao.setValorTransferencia(novoValor.getValorTransferencia());
-        novaTransacao.setIdcontaEntrada(idConta);
-        novaTransacao.setCliente(cliente.get());
-        transacaoRepository.saveAndFlush(novaTransacao);
-
         contaFiltrada.setValorDisponivel(contaFiltrada.getValorDisponivel().add(novoValor.getValorTransferencia()));
+
+        TransacaoCriacaoDto baseTransacao = new TransacaoCriacaoDto();
+        baseTransacao.setTypeTransacao(TypeTransacao.deposito);
+        baseTransacao.setDataTransacao(OffsetDateTime.now());
+        baseTransacao.setValorTransferencia(novoValor.getValorTransferencia());
+
+        transacaoServiceCreate.criarTransacao(baseTransacao,contaFiltrada,null);
     }
 
     @Transactional
@@ -86,17 +90,16 @@ public class ContaServiceMutation {
 
         contaEntrada.setValorDisponivel(valorDisponivelContaEntrada.add(valorTransferencia));
 
-        Transacao novaTransacao = new Transacao();
+        TransacaoCriacaoDto baseTransacao = new TransacaoCriacaoDto();
 
-        novaTransacao.setDataTransacao(OffsetDateTime.now());
-        novaTransacao.setIdContaSaida(idContaSaida);
-        novaTransacao.setValorTransferencia(valorTransferencia);
-        novaTransacao.setIdcontaEntrada(idContaEntrada);
-        novaTransacao.setCliente(cliente.get());
+        baseTransacao.setTypeTransacao(TypeTransacao.Interno);
+        baseTransacao.setDataTransacao(OffsetDateTime.now());
+        baseTransacao.setValorTransferencia(transacaoCriacaoDto.getValorTransferencia());
 
-        transacaoRepository.saveAndFlush(novaTransacao);
+        transacaoServiceCreate.criarTransacao(baseTransacao,contaEntrada,contaSaida);
+
     }
-    @org.springframework.transaction.annotation.Transactional
+    @Transactional
     public void transferenciaEntreClientes(Integer idClienteSaida,
                                            Integer idContaSaida,
                                            Integer idClienteEntrada,
@@ -120,17 +123,29 @@ public class ContaServiceMutation {
         if (valorTransferencia.getValorTransferencia().compareTo(contaSaida.getValorDisponivel()) > 0 ){
             throw new EntidadeNaoProcessavelException(contaSaida);
         }
-        Transacao novaTransacao = new Transacao();
-
-        novaTransacao.setDataTransacao(OffsetDateTime.now());
-        novaTransacao.setValorTransferencia(valorTransferencia.getValorTransferencia());
-        novaTransacao.setIdcontaEntrada(contaEntrada.getIdConta());
-        novaTransacao.setIdContaSaida(contaSaida.getIdConta());
-        novaTransacao.setCliente(clienteEntrada.get());
-        transacaoRepository.saveAndFlush(novaTransacao);
 
         contaSaida.setValorDisponivel(contaSaida.getValorDisponivel().subtract(valorTransferencia.getValorTransferencia()));
         contaEntrada.setValorDisponivel(contaEntrada.getValorDisponivel().add(valorTransferencia.getValorTransferencia()));
 
+        TransacaoCriacaoDto baseTransacao = new TransacaoCriacaoDto();
+
+        baseTransacao.setTypeTransacao(TypeTransacao.Externo);
+        baseTransacao.setDataTransacao(OffsetDateTime.now());
+        baseTransacao.setValorTransferencia(valorTransferencia.getValorTransferencia());
+
+        transacaoServiceCreate.criarTransacao(baseTransacao,contaEntrada,contaSaida);
+
+    }
+
+    @Transactional
+    public void retirar(Integer idCliente, Integer idConta, TransacaoCriacaoDto valor) {
+        Optional<Cliente> clienteSaida = clienteRepository.findById(idCliente);
+
+        if (clienteSaida.isEmpty()){
+            throw new EntidadeNaoEncontradaException("Id do cliente", clienteSaida.get());
+        }
+        Conta contaSaida = buscarConta.filtrarContaPorCliente(clienteSaida.get(), idConta);
+
+        contaSaida.setValorDisponivel(contaSaida.getValorDisponivel().subtract(valor.getValorTransferencia()));
     }
 }

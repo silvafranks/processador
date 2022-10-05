@@ -21,6 +21,13 @@ public class TransacaoController {
         contaServiceMutation.depositar(idCliente,idConta,valor);
         return ResponseEntity.ok().build();
     }
+    @DeleteMapping(value = "/{idCliente}/{idConta}")
+    public ResponseEntity retirarDinheiro(@PathVariable Integer idCliente,
+                                          @PathVariable Integer idConta,
+                                          @RequestBody TransacaoCriacaoDto valor){
+        contaServiceMutation.retirar(idCliente,idConta, valor);
+        return ResponseEntity.ok().build();
+    }
 
 
     @PatchMapping(value = "/{idClienteSaida}/{idContaSaida}/{idClienteEntrada}/{idContaEntrada}")
@@ -31,10 +38,10 @@ public class TransacaoController {
                                                  @RequestBody TransacaoCriacaoDto valorTransferencia){
 
         contaServiceMutation.transferenciaEntreClientes(idClienteSaida,
-                                                      idContaSaida,
-                                                      idClienteEntrada,
-                                                      idContaEntrada,
-                                                      valorTransferencia);
+                                                        idContaSaida,
+                                                        idClienteEntrada,
+                                                        idContaEntrada,
+                                                        valorTransferencia);
       return  ResponseEntity.ok().build();
 
     }

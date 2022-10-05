@@ -1,5 +1,6 @@
 package com.example.processador.model.cliente;
 
+import com.example.processador.model.conta.dto.Banco;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;

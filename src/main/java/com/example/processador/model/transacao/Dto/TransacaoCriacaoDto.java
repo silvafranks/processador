@@ -17,4 +17,7 @@ public class TransacaoCriacaoDto implements Serializable {
     private BigDecimal valorTransferencia;
     @NotBlank
     private  OffsetDateTime dataTransacao;
+
+    @NotBlank
+    private TypeTransacao typeTransacao;
 }

@@ -9,4 +9,4 @@ public enum Banco {
     Nubank,
     C6_Bank
 
-    }
+}
