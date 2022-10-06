@@ -1,5 +1,6 @@
 package com.example.processador.controler;
 
+import com.example.processador.model.conta.Conta;
 import com.example.processador.model.conta.dto.ContaCriacaoDto;
 import com.example.processador.model.conta.dto.ContaMutationDto;
 import com.example.processador.model.conta.services.ContaServiceCreate;
@@ -7,6 +8,7 @@ import com.example.processador.model.conta.services.ContaServiceMutation;
 import com.example.processador.model.conta.services.ContaServiceQuery;
 import com.example.processador.model.patrimonio.Patrimonio;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -39,5 +41,7 @@ public class ContaController {
 
         return ResponseEntity.ok(contaServiceQuery.contas(idCliente));
     }
+
+
 
 }
