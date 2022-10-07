@@ -57,6 +57,8 @@ public class ContaServiceMutation {
 
         contaFiltrada.setValorDisponivel(contaFiltrada.getValorDisponivel().add(novoValor.getValorTransferencia()));
 
+        contaFiltrada.setUltimaMovimentacao(OffsetDateTime.now());
+
         TransacaoCriacaoDto baseTransacao = new TransacaoCriacaoDto();
         baseTransacao.setTypeTransacao(TypeTransacao.deposito);
         baseTransacao.setDataTransacao(OffsetDateTime.now());
@@ -89,6 +91,10 @@ public class ContaServiceMutation {
         BigDecimal valorDisponivelContaEntrada = contaEntrada.getValorDisponivel();
 
         contaEntrada.setValorDisponivel(valorDisponivelContaEntrada.add(valorTransferencia));
+
+        contaEntrada.setUltimaMovimentacao(transacaoCriacaoDto.getDataTransacao());
+
+        contaSaida.setUltimaMovimentacao(transacaoCriacaoDto.getDataTransacao());
 
         TransacaoCriacaoDto baseTransacao = new TransacaoCriacaoDto();
 
@@ -127,6 +133,9 @@ public class ContaServiceMutation {
         contaSaida.setValorDisponivel(contaSaida.getValorDisponivel().subtract(valorTransferencia.getValorTransferencia()));
         contaEntrada.setValorDisponivel(contaEntrada.getValorDisponivel().add(valorTransferencia.getValorTransferencia()));
 
+        contaSaida.setUltimaMovimentacao(valorTransferencia.getDataTransacao());
+        contaEntrada.setUltimaMovimentacao(valorTransferencia.getDataTransacao());
+
         TransacaoCriacaoDto baseTransacao = new TransacaoCriacaoDto();
 
         baseTransacao.setTypeTransacao(TypeTransacao.Externo);
@@ -147,5 +156,8 @@ public class ContaServiceMutation {
         Conta contaSaida = buscarConta.filtrarContaPorCliente(clienteSaida.get(), idConta);
 
         contaSaida.setValorDisponivel(contaSaida.getValorDisponivel().subtract(valor.getValorTransferencia()));
+
+        contaSaida.setUltimaMovimentacao(valor.getDataTransacao());
+
     }
 }
