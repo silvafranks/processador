@@ -17,8 +17,8 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @Table(name = "Patrimonios")
-public class Patrimonio {
-
+@Deprecated
+public class  Patrimonio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -29,7 +29,6 @@ public class Patrimonio {
 //
 //    @Formula("SELECT sum(conta.valor_disponivel) FROM CONTA WHERE conta.patrimonio_id = id")
 //    private BigDecimal totalPatrimonio;
-//TODO - RELACIONAR CONTAS DIRETO COM CLIENTE
     public Patrimonio(){}
 
 }

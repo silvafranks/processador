@@ -21,8 +21,7 @@ import java.util.List;
 public class TransacaoServiceCreate {
 
     @Autowired
-    TransacaoRepository transacaoRepository;
-
+    private TransacaoRepository transacaoRepository;
 
     public void criarTransacao(TransacaoCriacaoDto novoValor,Conta ContaEntrada, Conta ContaSaida ){
 
@@ -33,10 +32,7 @@ public class TransacaoServiceCreate {
             novaTransacao.setContaEntrada(ContaEntrada);
             novaTransacao.setContaSaida(ContaSaida);
             novaTransacao.setType(novoValor.getTypeTransacao());
-
             transacaoRepository.saveAndFlush(novaTransacao);
-
-//            novaTransacao.setCliente(cliente);
 
     }
 

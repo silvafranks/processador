@@ -12,5 +12,4 @@ public interface TransacaoRepository extends JpaRepository<Transacao, BigInteger
     @Query("select t from Transacao t where t.contaEntrada.idConta = ?1 or t.contaSaida.idConta = ?1")
     List<Transacao> findAllTransacoesConta(Integer idConta);
 
-
 }
