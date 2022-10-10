@@ -29,19 +29,18 @@ public class Transacao {
     @Enumerated(EnumType.STRING)
     private TypeTransacao type;
 
-
     @Column
     @NotNull
     private OffsetDateTime dataTransacao;
 
     @ManyToOne
-    @JoinColumn(name = "contaEntrada_id")
+    @JoinColumn(name = "contaEntradaId")
     @JsonIgnore
     @JsonIgnoreProperties
     private Conta contaEntrada;
 
     @ManyToOne
-    @JoinColumn(name = "contaSaida_id")
+    @JoinColumn(name = "contaSaidaId")
     @JsonIgnore
     @JsonIgnoreProperties
     private Conta contaSaida;

@@ -17,45 +17,47 @@ public class TransacaoController {
     @PatchMapping(value = "/{idCliente}/{idConta}")
     public ResponseEntity depositarEmUmaConta(@PathVariable Integer idCliente,
                                               @PathVariable Integer idConta,
-                                              @RequestBody TransacaoCriacaoDto valor){
-        contaServiceMutation.depositar(idCliente,idConta,valor);
+                                              @RequestBody TransacaoCriacaoDto valor) {
+        contaServiceMutation.depositar(idCliente, idConta, valor);
         return ResponseEntity.ok().build();
     }
+
     @DeleteMapping(value = "/{idCliente}/{idConta}")
     public ResponseEntity retirarDinheiro(@PathVariable Integer idCliente,
                                           @PathVariable Integer idConta,
-                                          @RequestBody TransacaoCriacaoDto valor){
-        contaServiceMutation.retirar(idCliente,idConta, valor);
+                                          @RequestBody TransacaoCriacaoDto valor) {
+        contaServiceMutation.retirar(idCliente, idConta, valor);
         return ResponseEntity.ok().build();
     }
 
 
     @PatchMapping(value = "/{idClienteSaida}/{idContaSaida}/{idClienteEntrada}/{idContaEntrada}")
-    public  ResponseEntity transferirEntreClientes(@PathVariable Integer idClienteSaida,
-                                                 @PathVariable Integer idContaSaida,
-                                                 @PathVariable Integer idClienteEntrada,
-                                                 @PathVariable Integer idContaEntrada,
-                                                 @RequestBody TransacaoCriacaoDto valorTransferencia){
+    public ResponseEntity transferirEntreClientes(@PathVariable Integer idClienteSaida,
+                                                  @PathVariable Integer idContaSaida,
+                                                  @PathVariable Integer idClienteEntrada,
+                                                  @PathVariable Integer idContaEntrada,
+                                                  @RequestBody TransacaoCriacaoDto valorTransferencia) {
 
         contaServiceMutation.transferenciaEntreClientes(idClienteSaida,
-                                                        idContaSaida,
-                                                        idClienteEntrada,
-                                                        idContaEntrada,
-                                                        valorTransferencia);
-      return  ResponseEntity.ok().build();
+                idContaSaida,
+                idClienteEntrada,
+                idContaEntrada,
+                valorTransferencia);
+        return ResponseEntity.ok().build();
 
     }
+
     @PatchMapping(value = "/{idCliente}/{idContaSaida}/{idContaEntrada}")
-    public  ResponseEntity transferirEntreContas(@PathVariable Integer idCliente,
-                                                 @PathVariable Integer idContaSaida,
-                                                 @PathVariable Integer idContaEntrada,
-                                                 @RequestBody TransacaoCriacaoDto valorTransferencia){
+    public ResponseEntity transferirEntreContas(@PathVariable Integer idCliente,
+                                                @PathVariable Integer idContaSaida,
+                                                @PathVariable Integer idContaEntrada,
+                                                @RequestBody TransacaoCriacaoDto valorTransferencia) {
 
         contaServiceMutation.transferenciaInternaDeContas(idCliente,
                 idContaSaida,
                 idContaEntrada,
                 valorTransferencia);
-        return  ResponseEntity.ok().build();
+        return ResponseEntity.ok().build();
 
     }
 }
