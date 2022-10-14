@@ -30,6 +30,9 @@ public class Cliente {
     @Column(nullable = false)
     private String name;
 
+    @Column
+    private String senha;
+
     @Column(nullable = false)
     private String sobrenome;
 
