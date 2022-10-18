@@ -45,10 +45,6 @@ public class Cliente {
     @JsonIgnoreProperties
     private List<Conta> conta;
 
-//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "cliente")
-//    @JsonIgnoreProperties
-//    private List<Transacao> transacao;
-
     @Formula("SELECT sum(contas.valor_disponivel) FROM CONTAS WHERE contas.cliente_id = id")
     private BigDecimal totalPatrimonio;
 }
