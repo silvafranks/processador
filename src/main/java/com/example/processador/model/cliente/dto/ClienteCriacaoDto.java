@@ -28,4 +28,6 @@ public class ClienteCriacaoDto implements Serializable {
 
     private Integer cep;
 
+    @Column
+    private String senha;
 }

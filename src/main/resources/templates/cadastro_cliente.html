@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro cliente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<div style="height:100vh;width:100vw;display:flex;justify-content:center;align-items:center">
+    <form method="post" action="/cadastrar" style="height:50%;width:50%">
+        <div class="mb-3">
+            <label  class="form-label">Seu nome</label>
+            <input  name="name" class="form-control" id="NOME" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label  class="form-label">Seu sobrenome</label>
+            <input  name="sobrenome" class="form-control" id="SOBRENOME" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">CEP</label>
+            <input  class="form-control" id="CEP" required="required" name="cep" pattern="[-0-9]+">
+            <div  id="SenhaHelp" class="form-text">ESCREVA SOMENTE NUMEROS</div>
+
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Senha</label>
+            <input name="senha" type="password" class="form-control" id="exampleInputPassword1">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword2" class="form-label">Repita sua senha</label>
+            <input type="password" class="form-control" id="exampleInputPassword2">
+        </div>
+
+        <button type="submit" class="btn btn-primary">CADASTRAR</button>
+    </form>
+</div>
+</body>
+</html>

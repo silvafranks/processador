@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
-@Controller
+@Controller(value = "/conta")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ContaController {
 
@@ -24,11 +24,6 @@ public class ContaController {
 
     private final ContaServiceMutation contaServiceMutation;
 
-    @RequestMapping("/jsp")
-    public ModelAndView jspTeste(){
-
-        return new ModelAndView("index");
-    }
 
     @PostMapping(value = "/{idCliente}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> criarConta(@PathVariable Integer idCliente,
