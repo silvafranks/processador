@@ -30,4 +30,7 @@ public class ClienteCriacaoDto implements Serializable {
 
     @Column
     private String senha;
+
+    @Column
+    private String validarSenha;
 }

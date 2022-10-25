@@ -14,6 +14,7 @@ import org.hibernate.loader.entity.CascadeEntityJoinWalker;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class Cliente {
     private Integer id;
 
     @Column(nullable = false)
+    @NotNull
     private String name;
 
     @Column
@@ -37,8 +39,10 @@ public class Cliente {
     private String sobrenome;
 
     @Email
+    @Column(nullable = false,unique = true)
     private String email;
 
+    @Column(nullable = false)
     private Integer cep;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "cliente")

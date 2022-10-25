@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Cadastro cliente</title>
@@ -10,18 +10,19 @@
 <body>
 
 <div style="height:100vh;width:100vw;display:flex;justify-content:center;align-items:center">
-    <form method="post" action="/cadastrar" style="height:50%;width:50%">
+    <form action="/cadastrar" method="post" style="height:50%;width:50%;">
         <div class="mb-3">
-            <label  class="form-label">Seu nome</label>
-            <input  name="name" class="form-control" id="NOME" aria-describedby="emailHelp">
+            <label  for="validationDefault01"  class="form-label">Seu nome</label>
+            <input  name="name" class="form-control" id="validationDefault01"  required >
         </div>
         <div class="mb-3">
             <label  class="form-label">Seu sobrenome</label>
-            <input  name="sobrenome" class="form-control" id="SOBRENOME" aria-describedby="emailHelp">
+            <input  name="sobrenome" class="form-control" id="SOBRENOME" aria-describedby="emailHelp" required>
+
         </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
         </div>
         <div class="mb-3">
             <label class="form-label">CEP</label>
@@ -31,15 +32,16 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Senha</label>
-            <input name="senha" type="password" class="form-control" id="exampleInputPassword1">
+            <input name="senha" type="password" class="form-control" id="exampleInputPassword1" required>
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword2" class="form-label">Repita sua senha</label>
-            <input type="password" class="form-control" id="exampleInputPassword2">
+            <input type="password" class="form-control" id="exampleInputPassword2" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">CADASTRAR</button>
+        <button  stype="submit" class="btn btn-primary">CADASTRAR</button>
     </form>
+
 </div>
 </body>
 </html>

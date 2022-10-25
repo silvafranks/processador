@@ -1,5 +1,6 @@
 package com.example.processador.model.cliente.services;
 
+import com.example.processador.exception.EntidadeNaoProcessavelException;
 import com.example.processador.model.cliente.Cliente;
 import com.example.processador.model.cliente.ClienteRepository;
 import com.example.processador.model.cliente.dto.ClienteCriacaoDto;
@@ -22,6 +23,9 @@ public class ClienteServiceCreate {
 
     @Transactional
     public ClienteRespostaDto criarCliente(@Valid ClienteCriacaoDto clienteCriacaoDto){
+        if (!clienteCriacaoDto.getSenha().equals(clienteCriacaoDto.getValidarSenha())){
+            throw  new EntidadeNaoProcessavelException(clienteCriacaoDto);
+        }
         Cliente clienteDomain = clienteMapper.toDomain(clienteCriacaoDto);
         return clienteMapper.toDto(clienteRepository.saveAndFlush(clienteDomain));
     }
