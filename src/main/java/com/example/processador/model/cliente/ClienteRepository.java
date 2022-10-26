@@ -10,5 +10,9 @@ import java.util.List;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente,Integer>, JpaSpecificationExecutor<Cliente> {
+    Cliente findByEmail(String email);
+
+
+
 
 }

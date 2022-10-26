@@ -11,14 +11,14 @@
 </head>
 <body>
 <div style="height:100vh;width:100vw;display:flex;justify-content:center;align-items:center">
-    <form style="height:50%;width:50%">
+    <form action="/efetuarLogin" method="post" style="height:50%;width:50%">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Senha</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+            <input name="senha" type="password" class="form-control" id="exampleInputPassword1">
         </div>
 
         <button type="submit" class="btn btn-primary">Logar</button>

@@ -28,6 +28,5 @@ public class ClienteDto implements Serializable {
     @Column(nullable = false)
     private Integer cep;
 
-    private Patrimonio patrimonioCliente;
 
 }

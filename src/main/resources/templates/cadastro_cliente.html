@@ -10,7 +10,7 @@
 <body>
 
 <div style="height:100vh;width:100vw;display:flex;justify-content:center;align-items:center">
-    <form action="/cadastrar" method="post" style="height:50%;width:50%;">
+    <form action="/logar" method="post" style="height:50%;width:50%;">
         <div class="mb-3">
             <label  for="validationDefault01"  class="form-label">Seu nome</label>
             <input  name="name" class="form-control" id="validationDefault01"  required >
@@ -36,7 +36,7 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword2" class="form-label">Repita sua senha</label>
-            <input type="password" class="form-control" id="exampleInputPassword2" required>
+            <input  name="validarSenha" type="password" class="form-control" id="exampleInputPassword2" required>
         </div>
 
         <button  stype="submit" class="btn btn-primary">CADASTRAR</button>
