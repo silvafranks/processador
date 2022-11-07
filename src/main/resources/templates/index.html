@@ -1,15 +1,35 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
-      rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
-      crossorigin="anonymous">
-<div method="POST" action="/cadastro"
-        style="height:100vh;width:100vw;display:flex;justify-content:center;align-items:center;flex-direction:column">
-    <div style="width:50%;cursor:pointer">
-        <a style="text-decoration:none;color:rgb(0,102,0);" href="/login" >LOGUE</a>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Fractal by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" th:href="@{/css/main.css}" />
+		<noscript><link rel="stylesheet" th:href="@{/css/noscript.css}" /></noscript>
+	</head>
+	<body class="is-preload">
 
-    </div>
-    <div style="width:50%;cursor:pointer">
-        <a style="text-decoration:none;color:rgb(0,102,0);" href="/cadastro" >CADASTRE UM USUARIO</a>
-    </div>
+		<!-- Header -->
+			<header style="background-color:rgb(20, 32, 16);" id="header">
+				<div class="content">
+					<h1><a href="#">BEM VINDO</a></h1>
+					<p style="text-align:center">Visualize em um unico lugar
+					<br>todo seu patrimonio!</p>
+					<ul class="actions" style="padding: 0">
+						<li ><a href="/login" class="button primary icon solid">Login</a></li>
+						<li style="margin-right: 31px" ><a href="/cadastro" class="button primary icon solid">Cadastro</a></li>
+					</ul>
+				</div>
+				<div class="image phone"><div class="inner"><img th:src="@{https://png.pngtree.com/thumb_back/fw800/back_our/20190622/ourmid/pngtree-cartoon-internet-business-finance-poster-background-image_226964.jpg}" alt="" /></div></div>
+			</header>
 
+		<!-- Scripts -->
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/jquery.scrolly.min.js}"></script>
+		<script th:src="@{/js/browser.min.js}"></script>
+		<script th:src="@{/js/breakpoints.min.js}"></script>
+		<script th:src="@{/js/util.js}"></script>
+		<script th:src="@{/js/main.js}"></script>
 
-</div>
+	</body>
+</html>

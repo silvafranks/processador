@@ -9,6 +9,8 @@ import java.io.Serializable;
 
 @Data
 public class ClienteLoginDto implements Serializable {
+
+
     @Email
     @Column(nullable = false,unique = true)
     private String email;

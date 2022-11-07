@@ -29,10 +29,9 @@ public class Conta implements Comparable<Conta> {
     @Column(nullable = false)
     private BigDecimal valorDisponivel;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id",nullable = false)
-    @JsonIgnore
-    @JsonIgnoreProperties
     private Cliente cliente;
 
     @Column(nullable = false)

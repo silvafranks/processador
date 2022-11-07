@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 @Data
 public class ClienteRespostaDto implements Serializable {
 
+    private Integer id;
 
     @Column(nullable = false)
     private String name;

@@ -11,4 +11,5 @@ public interface ClienteMapper {
     Cliente toDomain(ClienteCriacaoDto dto);
     Cliente DtotoDomain(ClienteDto dto);
     ClienteRespostaDto toDto(Cliente domain);
+    ClienteDto DomaintoClienteDto(Cliente domain);
 }

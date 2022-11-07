@@ -1,11 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Tela inicial</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+          crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <a style="text-decoration:none;color:rgb(0,102,0);" href="">Cadastrar uma conta</a>
+<nav class="navbar navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+        <a  class="navbar-brand" href="#">Processador</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
+                aria-controls="offcanvasDarkNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+             aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <button style="background-color: #212529;border:none;" type="button"
+                                class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                data-bs-whatever="@getbootstrap">Cadastrar Conta
+                        </button>
 
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{'/conta/lista/'+${Cliente.id}}">Login</a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</nav>
 </body>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" style="display: none;"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastre uma conta</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="modal-cadastrar-conta" class="modal-body">
+                <form th:action="@{'/cadastrar_conta/'+${Cliente.id}}" method="post" style="height:50%;width:100%;">
+                    <div class="mb-3">
+                        <label for="validationDefault01" class="form-label">Banco</label>
+                        <input name="banco" class="form-control" id="validationDefault01" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Valor disponivel</label>
+                        <input name="valorDisponivel" class="form-control" id="valorDisponivel" required>
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Conta</label>
+                        <input name="conta" type="number" class="form-control" id="exampleInputEmail1"
+                               aria-describedby="emailHelp"
+                               required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Agencia</label>
+                        <input class="form-control" id="agencia" required="required" name="agencia">
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Senha</label>
+                        <input name="senha" type="password" class="form-control" id="exampleInputPassword1" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">CADASTRAR</button>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
 </html>
