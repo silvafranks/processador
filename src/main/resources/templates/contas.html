@@ -3,33 +3,36 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Contas</title>
     <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
-    <title>Bootstrap Example</title>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+          crossorigin="anonymous">
 </head>
 <body class="p-3 m-0 border-0 bd-example">
 
-<!-- Example Code -->
-<table  class="table">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Banco</th>
+                <th scope="col">valor Disponivel</th>
+                <th scope="col">Ultima movimentação</th>
+            </tr>
+        </thead>
 
-    <thead>
-    <tr>
-        <th scope="col">valor Disponivel</th>
-        <th scope="col">Banco</th>
+        <tbody>
+            <tr th:each="conta:${contas}">
+                <td th:text="${conta.banco}"></td>
+                <td th:text="${conta.valorDisponivel}"></td>
+                <td th:text="${conta.ultimaMovimentacao}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <li style=" list-style-type: none;" class="nav-item">
+        <a style="width: 100px;background: rgba(0, 0, 255,0.94);font-weight: bold;color: white;border: 0 none;border-radius:
+        5px;cursor: pointer;padding: 5px 5px;margin: 5px 5px;text-decoration: none;" aria-current="page" th:href="@{/home}">Voltar</a>
+    </li>
 
-    </tr>
-    </thead>
-    <tbody>
-
-    <tr th:each="conta:${contas}">
-        <td th:text="${conta.valorDisponivel}"></td>
-        <td th:text="${conta.banco}"></td>
-    </tr>
-
-    </tbody>
-
-</table>
-<!-- End Example Code -->
 </body>
 </html>
