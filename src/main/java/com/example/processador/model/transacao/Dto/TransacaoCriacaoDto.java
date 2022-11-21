@@ -8,9 +8,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
-/**
- * A DTO for the {@link Transacao} entity
- */
 @Data
 public class TransacaoCriacaoDto implements Serializable {
     @NotBlank

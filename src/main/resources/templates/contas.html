@@ -22,17 +22,27 @@
         </thead>
 
         <tbody>
-            <tr th:each="conta:${contas}">
+            <tr th:each="conta:${contas}" th:if="${conta.flag== T(com.example.processador.model.conta.dto.EnumFlag).Ativo}"     >
                 <td th:text="${conta.banco}"></td>
                 <td th:text="${conta.valorDisponivel}"></td>
                 <td th:text="${conta.ultimaMovimentacao}"></td>
             </tr>
         </tbody>
     </table>
-    <li style=" list-style-type: none;" class="nav-item">
-        <a style="width: 100px;background: rgba(0, 0, 255,0.94);font-weight: bold;color: white;border: 0 none;border-radius:
-        5px;cursor: pointer;padding: 5px 5px;margin: 5px 5px;text-decoration: none;" aria-current="page" th:href="@{/home}">Voltar</a>
-    </li>
 
+    <form action="/home" method="post"
+          style="background-color:white;
+                height:50%;width:40%;padding: 10vh;
+                margin:10vh 0;border-radius: 5%;">
+        <div style="display:none" class="mb-3">
+            <input th:value="${session.cliente.email}" name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+
+        <div style="display:none" class="mb-3">
+            <input th:value="${session.cliente.senha}" name="senha" type="password" class="form-control" id="exampleInputPassword1">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Voltar</button>
+    </form>
 </body>
 </html>

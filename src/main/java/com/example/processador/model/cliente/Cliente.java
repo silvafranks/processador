@@ -45,6 +45,7 @@ public class Cliente {
     @Column(nullable = false)
     private Integer cep;
 
-    @Formula("SELECT sum(contas.valor_disponivel) FROM CONTAS WHERE contas.cliente_id = id")
+    @Formula("SELECT sum(contas.valor_disponivel) FROM CONTAS WHERE contas.cliente_id = id AND contas.flag ='Ativo'")
     private BigDecimal totalPatrimonio;
+
 }

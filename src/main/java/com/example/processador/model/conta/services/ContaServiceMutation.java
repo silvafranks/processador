@@ -53,7 +53,7 @@ public class ContaServiceMutation {
             throw new EntidadeNaoEncontradaException("Objeto cliente", cliente);
         }
 
-        ContaDto contaFiltrada = buscarConta.filtrarContaPorCliente(cliente.get(), idConta);
+        Conta contaFiltrada = buscarConta.filtrarContaPorCliente(cliente.get(), idConta);
 
         System.out.println(contaFiltrada.getValorDisponivel());
 
@@ -78,7 +78,7 @@ public class ContaServiceMutation {
             throw new EntidadeNaoEncontradaException("Objeto cliente", cliente);
         }
 
-        ContaDto contaSaida = buscarConta.filtrarContaPorCliente(cliente.get(), idContaSaida);
+        Conta contaSaida = buscarConta.filtrarContaPorCliente(cliente.get(), idContaSaida);
         BigDecimal valorDisponivel = contaSaida.getValorDisponivel();
         BigDecimal valorTransferencia = transacaoCriacaoDto.getValorTransferencia();
 
@@ -87,7 +87,7 @@ public class ContaServiceMutation {
         }
 
         contaSaida.setValorDisponivel(valorDisponivel.subtract(valorTransferencia));
-        ContaDto contaEntrada = buscarConta.filtrarContaPorCliente(cliente.get(), idContaEntrada);
+        Conta contaEntrada = buscarConta.filtrarContaPorCliente(cliente.get(), idContaEntrada);
 
 
         BigDecimal valorDisponivelContaEntrada = contaEntrada.getValorDisponivel();
@@ -125,8 +125,8 @@ public class ContaServiceMutation {
             throw new EntidadeNaoEncontradaException("Id do cliente", clienteEntrada.get());
         }
 
-        ContaDto contaSaida = buscarConta.filtrarContaPorCliente(clienteSaida.get(), idContaSaida);
-        ContaDto contaEntrada = buscarConta.filtrarContaPorCliente(clienteEntrada.get(), idContaEntrada);
+        Conta contaSaida = buscarConta.filtrarContaPorCliente(clienteSaida.get(), idContaSaida);
+        Conta contaEntrada = buscarConta.filtrarContaPorCliente(clienteEntrada.get(), idContaEntrada);
 
         if (valorTransferencia.getValorTransferencia().compareTo(contaSaida.getValorDisponivel()) > 0 ){
             throw new EntidadeNaoProcessavelException(contaSaida);
@@ -155,7 +155,7 @@ public class ContaServiceMutation {
         if (clienteSaida.isEmpty()){
             throw new EntidadeNaoEncontradaException("Id do cliente", clienteSaida.get());
         }
-        ContaDto contaSaida = buscarConta.filtrarContaPorCliente(clienteSaida.get(), idConta);
+        Conta contaSaida = buscarConta.filtrarContaPorCliente(clienteSaida.get(), idConta);
 
         contaSaida.setValorDisponivel(contaSaida.getValorDisponivel().subtract(valor.getValorTransferencia()));
 

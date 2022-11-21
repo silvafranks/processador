@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Transferencia Entre Contas</title>
+</head>
+<body>
+<form action="/transferir" method="post">
+    <div th:if="${!contas.isEmpty()}">
+        <b>Conta saida</b>
+        <select th:name="ContaSaida" required>
+            <option th:each="i : ${contas}" th:value="${i.banco}"
+                    th:text="${i.banco}"></option>
+        </select>
+    </div>
+
+    <div th:unless="${!contas.isEmpty()}">
+        <b>NÃO EXITE CONTA CADASTRADA! S2</b>
+    </div>
+
+    <div th:if="${!contas.isEmpty()}">
+        <b>Conta Entrada</b>
+
+        <select th:name="ContaEntrada" required>
+            <option th:each="i : ${contas}" th:value="${i.banco}"
+                    th:text="${i.banco}" th:if="${i.flag== T(com.example.processador.model.conta.dto.EnumFlag).Ativo}"></option>
+        </select>
+    </div>
+    <br>
+
+    <input type="text" id="valorTranferencia" th:name="valorTransferencia"/>
+    <input type="hidden" name="idCliente" th:value="${idCliente}"/>
+
+    <button type="submit">Transferir</button>
+
+
+</form>
+<form action="/home" method="post"
+      style="background-color:white;
+      height:50%;width:40%;padding:10vh;
+      margin: 10vh 0;border-radius: 5%;">
+    <div style="display:none" class="mb-3">
+        <input th:value="${session.cliente.email}" name="email" type="email" class="form-control"
+               id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+
+    <div style="display:none" class="mb-3">
+        <input th:value="${session.cliente.senha}" name="senha" type="password" class="form-control"
+               id="exampleInputPassword1">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Voltar</button>
+</form>
+</body>
+</html>

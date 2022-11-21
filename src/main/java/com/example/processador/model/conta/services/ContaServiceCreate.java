@@ -10,6 +10,7 @@ import com.example.processador.model.conta.Conta;
 import com.example.processador.model.conta.ContaRepository;
 import com.example.processador.model.conta.dto.ContaCriacaoDto;
 import com.example.processador.model.conta.dto.ContaDto;
+import com.example.processador.model.conta.dto.EnumFlag;
 import com.example.processador.model.patrimonio.PatrimonioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,9 +58,27 @@ public class ContaServiceCreate {
         conta.setValorDisponivel(contaCriacaoDto.getValorDisponivel());
         conta.setBanco(contaCriacaoDto.getBanco());
         conta.setCliente(cliente.get());
+        conta.setFlag(EnumFlag.Ativo);
 
 
         contaRepository.save(conta);
 
     }
+
+    @Transactional
+    public void deletarConta(Integer idConta){
+
+        contaRepository.deleteById(idConta);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+

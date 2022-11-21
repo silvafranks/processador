@@ -32,16 +32,15 @@ public class TransacaoServiceCreate {
     @Autowired
     private ClienteMapper clienteMapper;
 
-    public void criarTransacao(TransacaoCriacaoDto novoValor, ContaDto contaEntradaDto, ContaDto contaSaidadto ){
+    public void criarTransacao(TransacaoCriacaoDto novoValor, Conta contaEntrada, Conta contaSaida ){
 
-        Conta ContaEntrada = contaMapper.contaDtoToDomain(contaEntradaDto);
-        Conta ContaSaida = contaMapper.contaDtoToDomain(contaSaidadto);
+
         Transacao novaTransacao = new Transacao();
 
             novaTransacao.setDataTransacao(OffsetDateTime.now());
             novaTransacao.setValorTransferencia(novoValor.getValorTransferencia());
-            novaTransacao.setContaEntrada(ContaEntrada);
-            novaTransacao.setContaSaida(ContaSaida);
+            novaTransacao.setContaEntrada(contaEntrada);
+            novaTransacao.setContaSaida(contaSaida);
             novaTransacao.setType(novoValor.getTypeTransacao());
             transacaoRepository.saveAndFlush(novaTransacao);
 

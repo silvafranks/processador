@@ -34,21 +34,12 @@ public class Transacao {
     private OffsetDateTime dataTransacao;
 
     @ManyToOne
-    @JoinColumn(name = "contaEntradaId")
-    @JsonIgnore
-    @JsonIgnoreProperties
+    @JoinColumn( name = "contaEntradaId")
     private Conta contaEntrada;
 
     @ManyToOne
     @JoinColumn(name = "contaSaidaId")
-    @JsonIgnore
-    @JsonIgnoreProperties
     private Conta contaSaida;
 
-//    @ManyToOne
-//    @JoinColumn(name = "cliente_id", nullable = false)
-//    @JsonIgnore
-//    @JsonIgnoreProperties
-//    private Cliente cliente;
 }
 

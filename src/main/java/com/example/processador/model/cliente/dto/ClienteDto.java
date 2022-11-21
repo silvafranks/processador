@@ -28,7 +28,6 @@ public class ClienteDto implements Serializable {
     private Integer cep;
 
 
-    private List<ContaDto> conta = new ArrayList<>();
 
 
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Desvincular conta</title>
+</head>
+<body>
+<div style="width:100vw;height:100vh;">
+    <form  action="/desvincular " method="post">
+        <select  th:name="idContaASerDeletada" required>
+            <option  th:each="i : ${contas}"  th:value="${i.idConta}"
+                    th:text="${i.banco}" th:if="${i.flag== T(com.example.processador.model.conta.dto.EnumFlag).Ativo}"></option>
+        </select>
+
+        <button type="submit">Desvincular</button>
+
+    </form>
+
+    <form action="/home" method="post" style="background-color:white;height:50%;width:40%;padding: 10vh;
+    margin: 10vh 0;
+    border-radius: 5%;">
+        <div style="display:none" class="mb-3">
+            <input th:value="${session.cliente.email}" name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+
+        <div style="display:none" class="mb-3">
+            <input th:value="${session.cliente.senha}" name="senha" type="password" class="form-control" id="exampleInputPassword1">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Voltar</button>
+    </form>
+</div>
+</body>
+</html>

@@ -3,13 +3,11 @@ package com.example.processador.Utils;
 import com.example.processador.exception.EntidadeConflitoException;
 import com.example.processador.exception.EntidadeNaoEncontradaException;
 import com.example.processador.model.cliente.Cliente;
-import com.example.processador.model.cliente.ClienteRepository;
 import com.example.processador.model.cliente.dto.ClienteDto;
 import com.example.processador.model.cliente.services.ClienteMapper;
 import com.example.processador.model.conta.Conta;
 import com.example.processador.model.conta.ContaRepository;
 import com.example.processador.model.conta.dto.ContaCriacaoDto;
-import com.example.processador.model.conta.dto.ContaDto;
 import com.example.processador.model.conta.services.ContaMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,10 +27,11 @@ public class ContaUtils {
     private final ContaRepository contaRepository;
     private final ClienteMapper clienteMapper;
 
-    public ContaDto filtrarContaPorCliente(Cliente cliente, Integer idConta) {
+    public Conta filtrarContaPorCliente(Cliente cliente, Integer idConta) {
 
         ClienteDto clienteDto = clienteMapper.DomaintoClienteDto(cliente);
-        return clienteDto.getConta().stream().filter(conta -> conta.getIdConta() == idConta)
+        List<Conta> contas = contaRepository.findByCliente(cliente);
+        return contas.stream().filter(conta -> conta.getIdConta() == idConta)
                 .findAny().orElseThrow(() -> new EntidadeNaoEncontradaException("conta", Conta.class));
     }
 

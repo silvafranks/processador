@@ -19,12 +19,15 @@ import java.time.OffsetDateTime;
 public class ContaCriacaoDto implements Serializable {
 
 
+    private Integer id;
+
     @Column(nullable = false)
     private BigDecimal valorDisponivel;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Banco banco;
+
 
     @Column(nullable = false)
     @Past
