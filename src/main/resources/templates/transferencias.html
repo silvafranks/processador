@@ -10,7 +10,7 @@
         <b>Conta saida</b>
         <select th:name="ContaSaida" required>
             <option th:each="i : ${contas}" th:value="${i.banco}"
-                    th:text="${i.banco}"></option>
+                    th:text="${i.banco}" th:if="${i.flag== T(com.example.processador.model.conta.dto.EnumFlag).Ativo}"></option>
         </select>
     </div>
 

@@ -7,11 +7,8 @@ import com.example.processador.model.cliente.Cliente;
 import com.example.processador.model.cliente.ClienteRepository;
 import com.example.processador.model.conta.Conta;
 import com.example.processador.model.conta.ContaRepository;
-import com.example.processador.model.conta.dto.ContaDto;
-import com.example.processador.model.patrimonio.PatrimonioRepository;
 import com.example.processador.model.transacao.Dto.TransacaoCriacaoDto;
 import com.example.processador.model.transacao.Dto.TypeTransacao;
-import com.example.processador.model.transacao.Transacao;
 import com.example.processador.model.transacao.TransacaoRepository;
 import com.example.processador.model.transacao.service.TransacaoServiceCreate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +28,6 @@ public class ContaServiceMutation {
     private ContaRepository contaRepository;
     @Autowired
     private ClienteRepository clienteRepository;
-
-    @Autowired
-    private PatrimonioRepository patrimonioRepository;
 
     @Autowired
     private TransacaoRepository transacaoRepository;

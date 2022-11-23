@@ -6,7 +6,6 @@ import com.example.processador.model.cliente.ClienteRepository;
 import com.example.processador.model.cliente.services.ClienteMapper;
 import com.example.processador.model.conta.Conta;
 import com.example.processador.model.conta.ContaRepository;
-import com.example.processador.model.patrimonio.PatrimonioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -23,9 +22,6 @@ public class ContaServiceQuery {
 
     @Autowired
     private ClienteRepository clienteRepository;
-
-    @Autowired
-    private PatrimonioRepository patrimonioRepository;
 
     @Autowired
     private ContaMapper contaMapper;

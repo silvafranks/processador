@@ -1,7 +1,6 @@
 package com.example.processador.model.cliente;
 
 import com.example.processador.model.conta.Conta;
-import com.example.processador.model.patrimonio.Patrimonio;
 import com.example.processador.model.transacao.Transacao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

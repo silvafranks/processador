@@ -11,7 +11,6 @@ import com.example.processador.model.conta.ContaRepository;
 import com.example.processador.model.conta.dto.ContaCriacaoDto;
 import com.example.processador.model.conta.dto.ContaDto;
 import com.example.processador.model.conta.dto.EnumFlag;
-import com.example.processador.model.patrimonio.PatrimonioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -36,10 +35,7 @@ public class ContaServiceCreate {
     private ClienteRepository clienteRepository;
 
     @Autowired
-    private PatrimonioRepository patrimonioRepository;
-
-    @Autowired
-    private ContaUtils contaUtils ;
+    private ContaUtils contaUtils;
 
     @Transactional
     public void criarConta(Integer idCliente, ContaCriacaoDto contaCriacaoDto) {

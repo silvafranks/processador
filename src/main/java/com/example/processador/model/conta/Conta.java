@@ -3,9 +3,6 @@ package com.example.processador.model.conta;
 import com.example.processador.model.cliente.Cliente;
 import com.example.processador.model.conta.dto.Banco;
 import com.example.processador.model.conta.dto.EnumFlag;
-import com.example.processador.model.patrimonio.Patrimonio;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;

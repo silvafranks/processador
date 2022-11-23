@@ -1,11 +1,7 @@
 package com.example.processador.model.cliente.dto;
-
-import com.example.processador.model.patrimonio.Patrimonio;
 import lombok.Data;
 import org.hibernate.annotations.Formula;
-
 import javax.persistence.Column;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.math.BigDecimal;
