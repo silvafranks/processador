@@ -31,7 +31,7 @@ public class Conta implements Comparable<Conta> {
     private BigDecimal valorDisponivel;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "cliente_id",nullable = false)
     private Cliente cliente;
 

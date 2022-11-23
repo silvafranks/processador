@@ -60,15 +60,8 @@ public class ContaServiceCreate {
         conta.setCliente(cliente.get());
         conta.setFlag(EnumFlag.Ativo);
 
-
         contaRepository.save(conta);
 
-    }
-
-    @Transactional
-    public void deletarConta(Integer idConta){
-
-        contaRepository.deleteById(idConta);
     }
 }
 

@@ -15,6 +15,7 @@ import com.example.processador.model.conta.services.ContaServiceMutation;
 import com.example.processador.model.conta.services.ContaServiceQuery;
 import com.example.processador.model.transacao.Dto.TransacaoCriacaoDto;
 import com.example.processador.model.transacao.Dto.TransacaoInfoDto;
+import com.example.processador.model.transacao.TransacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,7 @@ import org.thymeleaf.context.Context;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import java.math.BigInteger;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -51,6 +53,8 @@ public class ClienteControllerThymeleaf {
 
     @Autowired
     private ContaRepository contaRepository;
+    @Autowired
+    private TransacaoRepository transacaoRepository;
     @RequestMapping(value = "/login")
     public String index() {
 
@@ -136,7 +140,6 @@ public class ClienteControllerThymeleaf {
 
     @RequestMapping(value = "/desvincular_conta/{idCliente}")
     public String desvicularConta(@PathVariable Integer idCliente, Model model){
-            Context context = new Context();
 
         Optional<Cliente> cliente = clienteRepository.findById(idCliente);
         List<Conta> contaByCliente = contaRepository.findByCliente(cliente.get());
@@ -156,20 +159,14 @@ public class ClienteControllerThymeleaf {
         model.addAttribute("cliente",httpSession.getAttribute("cliente"));
         return "initial";
     }
+    @RequestMapping(value = "/deletar/{idCliente}")
+    public String deletar( Model model,HttpSession httpSession, @PathVariable Integer idCliente){
+        List<Conta>contas = contaRepository.findByCliente_Id(idCliente);
+        for (Conta conta: contas){
+            transacaoRepository.deleteByContaEntradaAndContaSaida(conta);
+        }
 
-//    @GetMapping("/grafico")
-//    public String getGrafico(Model model, Integer idCliente){
-//        Map<String, Integer> graphData = new TreeMap<>();
-//        List<Conta> contas = contaServiceQuery.contas(1);
-//
-//        for (Conta conta:contas) {
-//            graphData.put(conta.getBanco().toString(),conta.getValorDisponivel().intValue());
-//        }
-////        graphData.put("2016", 147);
-////        graphData.put("2017", 1256);
-////        graphData.put("2018", 3856);
-////        graphData.put("2019", 19807);
-//        model.addAttribute("chartData", graphData);
-//        return "chart";
-//    }
+        model.addAttribute("cliente",httpSession.getAttribute("cliente"));
+        return "initial";
+    }
 }

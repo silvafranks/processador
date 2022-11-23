@@ -23,6 +23,7 @@ import java.util.List;
 @Entity
 @Table(name = "Cliente")
 @Data
+
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

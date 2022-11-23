@@ -24,7 +24,7 @@ public class ClienteServiceCreate {
     @Transactional
     public ClienteRespostaDto criarCliente(@Valid ClienteCriacaoDto clienteCriacaoDto){
         if (!clienteCriacaoDto.getSenha().equals(clienteCriacaoDto.getValidarSenha())){
-            throw  new EntidadeNaoProcessavelException(clienteCriacaoDto);
+            throw new EntidadeNaoProcessavelException(clienteCriacaoDto);
         }
         Cliente clienteDomain = clienteMapper.toDomain(clienteCriacaoDto);
         return clienteMapper.toDto(clienteRepository.saveAndFlush(clienteDomain));

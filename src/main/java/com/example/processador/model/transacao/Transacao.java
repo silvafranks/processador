@@ -33,11 +33,11 @@ public class Transacao {
     @NotNull
     private OffsetDateTime dataTransacao;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn( name = "contaEntradaId")
     private Conta contaEntrada;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "contaSaidaId")
     private Conta contaSaida;
 

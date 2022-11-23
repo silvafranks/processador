@@ -11,7 +11,8 @@ public interface ClienteRepository extends JpaRepository<Cliente,Integer>, JpaSp
     Cliente findByEmail(String email);
     Optional<Cliente> findById(Integer id);
 
-
+    @Override
+    void deleteById(Integer integer);
 
 
 }
