@@ -29,7 +29,6 @@ public class ContaUtils {
 
     public Conta filtrarContaPorCliente(Cliente cliente, Integer idConta) {
 
-        ClienteDto clienteDto = clienteMapper.DomaintoClienteDto(cliente);
         List<Conta> contas = contaRepository.findByCliente(cliente);
         return contas.stream().filter(conta -> conta.getIdConta() == idConta)
                 .findAny().orElseThrow(() -> new EntidadeNaoEncontradaException("conta", Conta.class));

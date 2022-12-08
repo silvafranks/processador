@@ -12,37 +12,40 @@
 </head>
 <body class="p-3 m-0 border-0 bd-example">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Banco</th>
-                <th scope="col">valor Disponivel</th>
-                <th scope="col">Ultima movimentação</th>
-            </tr>
-        </thead>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Banco</th>
+        <th scope="col">valor Disponivel</th>
+        <th scope="col">Ultima movimentação</th>
+    </tr>
+    </thead>
 
-        <tbody>
-            <tr th:each="conta:${contas}" th:if="${conta.flag== T(com.example.processador.model.conta.dto.EnumFlag).Ativo}"     >
-                <td th:text="${conta.banco}"></td>
-                <td th:text="${conta.valorDisponivel}"></td>
-                <td th:text="${conta.ultimaMovimentacao}"></td>
-            </tr>
-        </tbody>
-    </table>
+    <tbody>
+    <tr th:each="conta:${contas}" th:if="${conta.flag== T(com.example.processador.model.conta.dto.EnumFlag).Ativo}">
+        <td th:text="${conta.banco}"></td>
+        <td th:text="${conta.valorDisponivel}"></td>
+        <td th:text="${conta.ultimaMovimentacao}"></td>
+    </tr>
+    </tbody>
+</table>
 
-    <form action="/home" method="post"
-          style="background-color:white;
+
+<form action="/home" method="post"
+      style="background-color:white;
                 height:50%;width:40%;padding: 10vh;
-                margin:10vh 0;border-radius: 5%;">
-        <div style="display:none" class="mb-3">
-            <input th:value="${session.cliente.email}" name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        </div>
+                margin:10vh 0;border-radius: 5%;padding-left: 0vh;">
+    <div style="display:none" class="mb-3">
+        <input th:value="${session.cliente.email}" name="email" type="email" class="form-control"
+               id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
 
-        <div style="display:none" class="mb-3">
-            <input th:value="${session.cliente.senha}" name="senha" type="password" class="form-control" id="exampleInputPassword1">
-        </div>
+    <div style="display:none" class="mb-3">
+        <input th:value="${session.cliente.senha}" name="senha" type="password" class="form-control"
+               id="exampleInputPassword1">
+    </div>
 
-        <button type="submit" class="btn btn-primary">Voltar</button>
-    </form>
+    <button type="submit" class="btn btn-primary">Voltar</button>
+</form>
 </body>
 </html>

@@ -31,9 +31,9 @@
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
+                        <!--                        <li class="nav-item">-->
+                        <!--                            <a class="nav-link active" aria-current="page" href="#">Home</a>-->
+                        <!--                        </li>-->
                         <li class="nav-item">
                             <button style="background-color: #212529;border:none;padding:0;" type="button"
                                     class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
@@ -47,14 +47,18 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{'/transferir/'+${cliente.id}}">Fazer transferencia</a>
+                            <a class="nav-link active" aria-current="page" th:href="@{'/transferir/'+${cliente.id}}">Fazer
+                                transferencia</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{'/desvincular_conta/'+${cliente.id}}">Desvincular conta</a>
+                            <a class="nav-link active" aria-current="page"
+                               th:href="@{'/desvincular_conta/'+${cliente.id}}">Desvincular conta</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{'/deletar/'+${cliente.id}}">Limpar Historico de Transações</a>
+                            <a class="nav-link active" aria-current="page" th:href="@{'/transacoes/'+${cliente.id}}">
+                                Historico de Transações</a>
                         </li>
 
                     </ul>
@@ -80,6 +84,8 @@
         <br/>
 
     </div>
+
+
 </div>
 
 </div>

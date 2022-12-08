@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface TransacaoRepository extends JpaRepository<Transacao, BigInteger> {
-    @Query("select t from Transacao t where t.contaEntrada.idConta = ?1 or t.contaSaida.idConta = ?1")
+    @Query("select distinct t from Transacao t where t.contaEntrada.idConta = ?1 or t.contaSaida.idConta = ?1")
     List<Transacao> findAllTransacoesConta(Integer idConta);
 
 
@@ -25,4 +25,8 @@ public interface TransacaoRepository extends JpaRepository<Transacao, BigInteger
     @Modifying
     @Query("delete from Transacao t where t.contaEntrada = ?1 or t.contaSaida = ?1")
     int deleteByContaEntradaAndContaSaida(Conta contaEntrada);
+
+    @Query("select t from Transacao t where t.contaEntrada = ?1")
+    List<Transacao> findByContaEntrada(Conta contaEntrada);
+
 }

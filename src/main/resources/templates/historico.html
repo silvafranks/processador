@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Historico Transações</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body style="width:100vw;height:100vh;">
+<div style="margin: 10px 10px 10px 10px;">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">valor Transferencia</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Data</th>
+            <th scope="col">Conta entrada</th>
+            <th scope="col">Conta saida</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="transacao:${Transacoes}">
+            <td th:text="${transacao.idTransacao}"></td>
+            <td th:text="${transacao.valorTransferencia}"></td>
+            <td th:text="${transacao.type}"></td>
+            <td th:text="${transacao.dataTransacao}"></td>
+            <td th:text="${transacao.contaEntrada.idConta}"></td>
+            <td th:text="${transacao.contaSaida.idConta}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <form action="/home" method="post"
+          style="background-color:white;
+                height:50%;width:40%;padding: 10vh;
+                margin:10vh 0;border-radius: 5%;padding-left:0;">
+        <div style="display:none" class="mb-3">
+            <input th:value="${session.cliente.email}" name="email" type="email" class="form-control"
+                   id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+
+        <div style="display:none" class="mb-3">
+            <input th:value="${session.cliente.senha}" name="senha" type="password" class="form-control"
+                   id="exampleInputPassword1">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Voltar</button>
+    </form>
+
+    <a style="text-decoration: none;" class="btn btn-warning" aria-current="page"
+       th:href="@{'/deletar/'+${cliente.id}}">Limpar
+        Historico</a>
+
+</div>
+</body>
+</html>
