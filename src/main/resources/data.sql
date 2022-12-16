@@ -1,5 +1,5 @@
 
---Iniciando dados junto com a aplicação!
+-- Iniciando dados junto com a aplicação!
 insert into cliente(CEP,EMAIL,NAME,SENHA,SOBRENOME)
     values(1234,'f@f.com','f',123,'f');
 

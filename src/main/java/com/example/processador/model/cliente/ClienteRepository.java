@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente,Integer>, JpaSpecificationExecutor<Cliente> {
-    Cliente findByEmail(String email);
+    Optional<Cliente> findByEmail(String email);
     Optional<Cliente> findById(Integer id);
 
     @Override

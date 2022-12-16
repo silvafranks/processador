@@ -79,7 +79,7 @@ public class ClienteControllerThymeleaf {
 
     @RequestMapping(value = "/home")
     public String home(HttpSession httpSession, ClienteLoginDto clienteLoginDto, Model model) {
-        Cliente byEmail = clienteRepository.findByEmail(clienteLoginDto.getEmail());
+        Cliente byEmail = clienteRepository.findByEmail(clienteLoginDto.getEmail()).get();
         if (byEmail == null) {
             model.addAttribute("cliente", httpSession.getAttribute("cliente"));
             return "initial";

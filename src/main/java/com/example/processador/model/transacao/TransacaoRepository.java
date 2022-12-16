@@ -1,6 +1,7 @@
 package com.example.processador.model.transacao;
 
 import com.example.processador.model.conta.Conta;
+import com.example.processador.model.conta.dto.Banco;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

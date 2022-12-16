@@ -25,7 +25,6 @@ public class ContaUtils {
     private final ContaMapper contaMapper;
 
     private final ContaRepository contaRepository;
-    private final ClienteMapper clienteMapper;
 
     public Conta filtrarContaPorCliente(Cliente cliente, Integer idConta) {
 
@@ -35,7 +34,6 @@ public class ContaUtils {
     }
 
     public void VerificarBanco(Cliente cliente, ContaCriacaoDto contaCriacaoDto) {
-
 
         List<Conta> contas = contaRepository.findByCliente(cliente);
 
