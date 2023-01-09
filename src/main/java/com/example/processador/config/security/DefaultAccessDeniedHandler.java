@@ -23,6 +23,6 @@ public class DefaultAccessDeniedHandler implements AccessDeniedHandler {
                     "User '" + auth.getName() + "' attempted to access the protected URL: " + request.getRequestURI());
         }
 
-        response.sendRedirect(request.getContextPath() + "/403");
+        response.sendRedirect(request.getContextPath() + "/error");
     }
 }

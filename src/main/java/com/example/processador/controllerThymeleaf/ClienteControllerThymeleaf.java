@@ -58,11 +58,11 @@ public class ClienteControllerThymeleaf {
     @Autowired
     private TransacaoRepository transacaoRepository;
 
-    @RequestMapping(value = "/login")
-    public String index() {
-
-        return "login";
-    }
+//    @RequestMapping(value = "/login")
+//    public String index() {
+//
+//        return "login";
+//    }
 
     @RequestMapping(value = "/cadastro")
     public String cadastrar() {
@@ -79,10 +79,12 @@ public class ClienteControllerThymeleaf {
 
     @RequestMapping(value = "/home")
     public String home(HttpSession httpSession, ClienteLoginDto clienteLoginDto, Model model) {
-        Cliente byEmail = clienteRepository.findByEmail(clienteLoginDto.getEmail()).get();
+        System.out.println(httpSession.getAttribute("cliente"));
+
+        Cliente byEmail = clienteRepository.findByEmail(clienteLoginDto.getUsername()).get();
         if (byEmail == null) {
             model.addAttribute("cliente", httpSession.getAttribute("cliente"));
-            return "initial";
+                return "initial";
         }
         Optional<Cliente> cliente = clienteRepository.findById(byEmail.getId());
 
@@ -102,8 +104,8 @@ public class ClienteControllerThymeleaf {
         contaServiceCreate.criarConta(idCliente, contaCriacaoDto);
 
         ClienteLoginDto clienteLoginDto = new ClienteLoginDto();
-        clienteLoginDto.setEmail(byId.get().getEmail());
-        clienteLoginDto.setSenha(byId.get().getSenha());
+        clienteLoginDto.setUsername(byId.get().getEmail());
+        clienteLoginDto.setPassword(byId.get().getSenha());
 
         model.addAttribute("cliente", byId.get());
         return "initial";

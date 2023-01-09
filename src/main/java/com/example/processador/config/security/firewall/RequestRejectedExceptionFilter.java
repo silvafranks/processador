@@ -1,4 +1,4 @@
-package com.example.processador.config.security;
+package com.example.processador.config.security.firewall;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
@@ -16,10 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
+
 @Slf4j
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class RequestRejectedExceptionFilter extends GenericFilterBean {
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         try {

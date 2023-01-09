@@ -12,8 +12,8 @@ public class ClienteLoginDto implements Serializable {
 
     @Email
     @Column(nullable = false,unique = true)
-    private String email;
+    private String username;
     @Column
-    private String senha;
+    private String password;
 
 }

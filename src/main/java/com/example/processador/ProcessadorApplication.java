@@ -8,13 +8,10 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@SpringBootApplication(scanBasePackages = "com.example.processador")
-public class ProcessadorApplication extends SpringBootServletInitializer {
+@SpringBootApplication
+public class ProcessadorApplication {
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(ProcessadorApplication.class);
-	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(ProcessadorApplication.class, args);
 	}

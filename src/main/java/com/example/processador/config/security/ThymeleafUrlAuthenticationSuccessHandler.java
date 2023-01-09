@@ -53,7 +53,7 @@ public class ThymeleafUrlAuthenticationSuccessHandler implements AuthenticationS
 
     }
     private String determineTargetUrl(Authentication authentication) {
-        return "/usuarios";
+        return "/home";
     }
 
 }
