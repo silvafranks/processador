@@ -48,8 +48,6 @@ public class TransacaoController {
     @Autowired
     private TransacaoRepository transacaoRepository;
 
-
-
     @RequestMapping(value = "/transferir/{idCliente}")
     public String fazerTransferencia(@PathVariable Integer idCliente, Model model) {
 

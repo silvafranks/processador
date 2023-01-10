@@ -11,8 +11,11 @@ import com.example.processador.model.conta.services.ContaServiceQuery;
 import com.example.processador.model.transacao.TransacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class ClienteController {
@@ -36,6 +39,11 @@ public class ClienteController {
     @Autowired
     private TransacaoRepository transacaoRepository;
 
+    @RequestMapping(value = "/home")
+    public String home(HttpSession httpSession, Model model) {
+        model.addAttribute("cliente", httpSession.getAttribute("cliente"));
+        return "initial";
+    }
 
     @RequestMapping(value = "/cadastro")
     public String cadastrar() {
