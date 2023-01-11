@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Tela inicial</title>
@@ -63,6 +63,9 @@
 
                     </ul>
 
+                </div>
+                <div  sec:authorize="isAuthenticated()">
+                    <a th:href="@{/logout}" style="background-color: #151719;border:none;padding:10px;" class="btn btn-primary">Sair</a>
                 </div>
             </div>
         </div>
@@ -133,6 +136,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 

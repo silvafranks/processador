@@ -45,7 +45,7 @@ public class SecurityConfiguration {
                 .formLogin()
                 .loginPage("/login")
                 .successHandler(myAuthenticationSuccessHandler())
-                .failureUrl("/error").permitAll().and().logout()
+                .failureUrl("/login?error").permitAll().and().logout()
                 .permitAll()
                 .and().exceptionHandling().accessDeniedHandler(defaultAccessDeniedHandler)
                 .and().headers().frameOptions().sameOrigin();
