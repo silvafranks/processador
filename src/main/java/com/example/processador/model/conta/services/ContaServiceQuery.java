@@ -3,10 +3,9 @@ package com.example.processador.model.conta.services;
 import com.example.processador.exception.EntidadeNaoEncontradaException;
 import com.example.processador.model.cliente.Cliente;
 import com.example.processador.model.cliente.ClienteRepository;
+import com.example.processador.model.cliente.services.ClienteMapper;
 import com.example.processador.model.conta.Conta;
 import com.example.processador.model.conta.ContaRepository;
-import com.example.processador.model.patrimonio.Patrimonio;
-import com.example.processador.model.patrimonio.PatrimonioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -25,15 +24,19 @@ public class ContaServiceQuery {
     private ClienteRepository clienteRepository;
 
     @Autowired
-    private PatrimonioRepository patrimonioRepository;
+    private ContaMapper contaMapper;
 
-   public List<Conta> contas(Integer idCliente){
-       Optional<Cliente> cliente = clienteRepository.findById(idCliente);
+    @Autowired
+    private ClienteMapper clienteMapper;
 
-       if (cliente.isEmpty()){
-           throw new EntidadeNaoEncontradaException("ID não encontrado","Cliente");
-       }
+    public List<Conta> contas(Integer idCliente){
+        Optional<Cliente> cliente = clienteRepository.findById(idCliente);
 
-       return cliente.get().getConta();
-   }
+        if (cliente.isEmpty()){
+            throw new EntidadeNaoEncontradaException("ID não encontrado","Cliente");
+        }
+        List<Conta> contaDto = contaRepository.findByCliente(cliente.get());
+
+        return contaDto;
+    }
 }
