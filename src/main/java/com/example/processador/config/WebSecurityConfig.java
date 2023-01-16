@@ -1,31 +1,45 @@
 package com.example.processador.config;
 
+import com.example.processador.config.jwt.JwtAuthenticationFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-public class webSecurityConfig {
+@EnableWebSecurity
+@RequiredArgsConstructor
+public class WebSecurityConfig {
 
+
+    private final JwtAuthenticationFilter jwtAuthFilter;
+    private final AuthenticationProvider autheticationProvider;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.httpBasic()
-                .and()
+        http.csrf()
+                .disable()
                 .authorizeHttpRequests()
-                .antMatchers("/h2-console/**").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/h2-console/**", "/authentication/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
                 .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authenticationProvider(autheticationProvider)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .headers().frameOptions().sameOrigin()
-                .and()
-                .csrf().disable()
-        ;
+                .and();
+
+
         return http.build();
     }
 

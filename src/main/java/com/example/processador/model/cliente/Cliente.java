@@ -1,13 +1,14 @@
 package com.example.processador.model.cliente;
 
+import com.example.processador.enums.RoleName;
 import com.example.processador.model.role.RoleModel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Formula;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.management.relation.Role;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -21,6 +22,9 @@ import java.util.List;
 @Entity
 @Table(name = "Cliente")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cliente  implements UserDetails, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,16 +50,14 @@ public class Cliente  implements UserDetails, Serializable {
     @Formula("SELECT sum(contas.valor_disponivel) FROM CONTAS WHERE contas.cliente_id = id")
     private BigDecimal totalPatrimonio;
 
-    @ManyToMany
-    @JoinTable(name = "TB_USER_ROLES",
-            joinColumns = @JoinColumn(name = "cliente_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private List<RoleModel> roles;
+
+    @Enumerated(EnumType.STRING)
+    private RoleName role;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles;
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
