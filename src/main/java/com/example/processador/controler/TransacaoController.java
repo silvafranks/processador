@@ -1,5 +1,6 @@
 package com.example.processador.controler;
 
+import com.example.processador.config.authetication.AuthenticationUtils;
 import com.example.processador.model.conta.services.ContaServiceMutation;
 import com.example.processador.model.transacao.Dto.TransacaoCriacaoDto;
 import lombok.RequiredArgsConstructor;
@@ -17,16 +18,18 @@ public class TransacaoController {
     @PatchMapping(value = "/{idCliente}/{idConta}")
     public ResponseEntity depositarEmUmaConta(@PathVariable Integer idCliente,
                                               @PathVariable Integer idConta,
-                                              @RequestBody TransacaoCriacaoDto valor) {
-        contaServiceMutation.depositar(idCliente, idConta, valor);
+                                              @RequestBody TransacaoCriacaoDto valor,
+                                              @RequestHeader("Authorization") String bearerToken) {
+        contaServiceMutation.depositar(idCliente, idConta, valor, bearerToken);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(value = "/{idCliente}/{idConta}")
     public ResponseEntity retirarDinheiro(@PathVariable Integer idCliente,
                                           @PathVariable Integer idConta,
-                                          @RequestBody TransacaoCriacaoDto valor) {
-        contaServiceMutation.retirar(idCliente, idConta, valor);
+                                          @RequestBody TransacaoCriacaoDto valor,
+                                          @RequestHeader("Authorization") String bearerToken) {
+        contaServiceMutation.retirar(idCliente, idConta, valor, bearerToken);
         return ResponseEntity.ok().build();
     }
 
@@ -35,13 +38,15 @@ public class TransacaoController {
                                                   @PathVariable Integer idContaSaida,
                                                   @PathVariable Integer idClienteEntrada,
                                                   @PathVariable Integer idContaEntrada,
-                                                  @RequestBody TransacaoCriacaoDto valorTransferencia) {
+                                                  @RequestBody TransacaoCriacaoDto valorTransferencia,
+                                                  @RequestHeader("Authorization") String bearerToken) {
 
         contaServiceMutation.transferenciaEntreClientes(idClienteSaida,
                 idContaSaida,
                 idClienteEntrada,
                 idContaEntrada,
-                valorTransferencia);
+                valorTransferencia,
+                bearerToken);
         return ResponseEntity.ok().build();
 
     }
@@ -50,12 +55,14 @@ public class TransacaoController {
     public ResponseEntity transferirEntreContas(@PathVariable Integer idCliente,
                                                 @PathVariable Integer idContaSaida,
                                                 @PathVariable Integer idContaEntrada,
-                                                @RequestBody TransacaoCriacaoDto valorTransferencia) {
+                                                @RequestBody TransacaoCriacaoDto valorTransferencia,
+                                                @RequestHeader("Authorization") String bearerToken) {
 
         contaServiceMutation.transferenciaInternaDeContas(idCliente,
                 idContaSaida,
                 idContaEntrada,
-                valorTransferencia);
+                valorTransferencia,
+                bearerToken);
         return ResponseEntity.ok().build();
 
     }

@@ -31,6 +31,7 @@ public class AutheticationService {
                 .sobrenome(request.getSobrenome())
                 .role(RoleName.ROLE_USUARIO)
                 .cep(request.getCep())
+
                 .build();
         clienteRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -41,20 +42,15 @@ public class AutheticationService {
     }
 
     public AuthenticationResponse autheticate(AuthenticationRequest request) {
-        System.out.println(request);
-        System.out.println("ADNKA ");
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getSenha())
                 );
-        System.out.println("teste ");
 
-        var user  = clienteRepository.findByEmail(request.getEmail()).orElseThrow();
-
+        var user  = clienteRepository.findByEmail(request.getEmail())
+                .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
-        System.out.println(user+"   "+ jwtToken);
-        System.out.println("TESTEE");
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();

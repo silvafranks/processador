@@ -1,5 +1,6 @@
 package com.example.processador.model.conta.services;
 
+import com.example.processador.config.authetication.AuthenticationUtils;
 import com.example.processador.exception.EntidadeNaoEncontradaException;
 import com.example.processador.model.cliente.Cliente;
 import com.example.processador.model.cliente.ClienteRepository;
@@ -28,8 +29,12 @@ public class ContaServiceQuery {
 
     @Autowired
     private ClienteMapper clienteMapper;
+    @Autowired
+    private AuthenticationUtils authenticationUtils;
+    public List<Conta> contas(Integer idCliente, String token){
 
-    public List<Conta> contas(Integer idCliente){
+        authenticationUtils.verificaIdCliente(idCliente, token);
+
         Optional<Cliente> cliente = clienteRepository.findById(idCliente);
 
         if (cliente.isEmpty()){

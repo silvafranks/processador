@@ -1,6 +1,7 @@
 package com.example.processador.model.conta.services;
 
 import com.example.processador.Utils.ContaUtils;
+import com.example.processador.config.authetication.AuthenticationUtils;
 import com.example.processador.exception.EntidadeNaoEncontradaException;
 import com.example.processador.exception.EntidadeNaoProcessavelException;
 import com.example.processador.model.cliente.Cliente;
@@ -37,9 +38,12 @@ public class ContaServiceMutation {
 
     @Autowired
     private ContaUtils buscarConta ;
+    @Autowired
+    private AuthenticationUtils authenticationUtils;
 
     @Transactional
-    public void depositar(Integer idCliente, Integer idConta, TransacaoCriacaoDto novoValor){
+    public void depositar(Integer idCliente, Integer idConta, TransacaoCriacaoDto novoValor, String token){
+        authenticationUtils.verificaIdCliente(idCliente, token);
 
         Optional<Cliente> cliente = clienteRepository.findById(idCliente);
 
@@ -64,8 +68,8 @@ public class ContaServiceMutation {
     }
 
     @Transactional
-    public  void transferenciaInternaDeContas(Integer idCliente, Integer idContaSaida, Integer idContaEntrada, TransacaoCriacaoDto transacaoCriacaoDto){
-
+    public  void transferenciaInternaDeContas(Integer idCliente, Integer idContaSaida, Integer idContaEntrada, TransacaoCriacaoDto transacaoCriacaoDto, String token){
+        authenticationUtils.verificaIdCliente(idCliente, token);
         Optional<Cliente> cliente = clienteRepository.findById(idCliente);
 
         if (cliente.isEmpty()){
@@ -106,8 +110,9 @@ public class ContaServiceMutation {
                                            Integer idContaSaida,
                                            Integer idClienteEntrada,
                                            Integer idContaEntrada,
-                                           TransacaoCriacaoDto valorTransferencia) {
+                                           TransacaoCriacaoDto valorTransferencia, String token) {
 
+        authenticationUtils.verificaIdCliente(idClienteSaida, token);
 
         Optional<Cliente> clienteSaida = clienteRepository.findById(idClienteSaida);
         Optional<Cliente> clienteEntrada = clienteRepository.findById(idClienteEntrada);
@@ -143,7 +148,9 @@ public class ContaServiceMutation {
     }
 
     @Transactional
-    public void retirar(Integer idCliente, Integer idConta, TransacaoCriacaoDto valor) {
+    public void retirar(Integer idCliente, Integer idConta, TransacaoCriacaoDto valor,String token) {
+        authenticationUtils.verificaIdCliente(idCliente, token);
+
         Optional<Cliente> clienteSaida = clienteRepository.findById(idCliente);
 
         if (clienteSaida.isEmpty()){

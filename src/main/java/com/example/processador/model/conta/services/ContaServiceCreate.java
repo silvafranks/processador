@@ -1,6 +1,7 @@
 package com.example.processador.model.conta.services;
 
 import com.example.processador.Utils.ContaUtils;
+import com.example.processador.config.authetication.AuthenticationUtils;
 import com.example.processador.exception.EntidadeNaoEncontradaException;
 import com.example.processador.model.cliente.Cliente;
 import com.example.processador.model.cliente.ClienteRepository;
@@ -36,9 +37,13 @@ public class ContaServiceCreate {
 
     @Autowired
     private ContaUtils contaUtils;
+    @Autowired
+    private AuthenticationUtils authenticationUtils;
 
     @Transactional
-    public void criarConta(Integer idCliente, ContaCriacaoDto contaCriacaoDto) {
+    public void criarConta(Integer idCliente, ContaCriacaoDto contaCriacaoDto, String token) {
+        authenticationUtils.verificaIdCliente(idCliente, token);
+
         if (clienteRepository.findById(idCliente).isEmpty()) {
             throw new EntidadeNaoEncontradaException("Cliente", contaCriacaoDto);
         }

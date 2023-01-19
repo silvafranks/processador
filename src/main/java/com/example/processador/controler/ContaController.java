@@ -27,16 +27,18 @@ public class ContaController {
 
     @PostMapping(value = "/{idCliente}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> criarConta(@PathVariable Integer idCliente,
-                                        @RequestBody ContaCriacaoDto contaCriacaoDto){
-        contaService.criarConta(idCliente,contaCriacaoDto);
+                                        @RequestBody ContaCriacaoDto contaCriacaoDto,
+                                        @RequestHeader("Authorization") String bearerToken){
+
+        contaService.criarConta(idCliente,contaCriacaoDto, bearerToken);
 
         return ResponseEntity.ok().build();
     }
 
     @GetMapping(value = "/{idCliente}")
-    public ResponseEntity<?> buscarContas(@PathVariable Integer idCliente ){
+    public ResponseEntity<?> buscarContas(@PathVariable Integer idCliente,@RequestHeader("Authorization") String bearerToken ){
 
-        return ResponseEntity.ok(contaServiceQuery.contas(idCliente));
+        return ResponseEntity.ok(contaServiceQuery.contas(idCliente, bearerToken));
     }
 
 

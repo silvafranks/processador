@@ -1,5 +1,7 @@
 package com.example.processador.config.jwt;
 
+import com.example.processador.model.cliente.Cliente;
+import com.example.processador.model.cliente.ClienteRepository;
 import jdk.jshell.spi.ExecutionControl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
@@ -17,12 +19,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+
+    private final ClienteRepository clienteRepository;
 
     @Override
     protected void doFilterInternal(@NotNull HttpServletRequest request,
@@ -39,15 +45,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
             jwt = authHeader.substring(7);
-            email = jwtService.extractEmail(jwt);
+            email = jwtService.extractUsername(jwt);
+        System.out.println("Email- jwtAuthenticationFilter  "+authHeader.substring(7));
+        System.out.println("Email- email  "+jwtService.extractUsername(jwt));
             if (email != null && SecurityContextHolder.getContext().getAuthentication() == null){
 
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
+
                 if (jwtService.isTokenValid(jwt,userDetails)){
                     UsernamePasswordAuthenticationToken authToken =
                             new UsernamePasswordAuthenticationToken
-                                    (userDetails,null,
-                                            userDetails.getAuthorities());
+                                    (userDetails,
+                                    null,
+                                    userDetails.getAuthorities()
+                                    );
                     authToken.setDetails(
                             new WebAuthenticationDetailsSource().buildDetails(request)
                     );
@@ -56,4 +67,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
             filterChain.doFilter(request,response);
     }
+    private boolean sameCliente(String userNameNoToken, Integer IdClienteNaReq) {
+        Optional<Cliente> byEmail = clienteRepository.findByEmail(userNameNoToken);
+
+        if (byEmail.get().getId().equals(IdClienteNaReq)){
+            return true;
+        }
+        return true;
+    }
 }
+

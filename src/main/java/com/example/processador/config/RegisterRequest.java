@@ -14,21 +14,9 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequest {
-
-    @Column(nullable = false)
-    @NotNull
-        private String name;
-
-    @Column
+    private String name;
     private String senha;
-
-    @Column(nullable = false)
     private String sobrenome;
-
-    @Email
-    @Column(nullable = false,unique = true)
     private String email;
-
-    @Column(nullable = false)
     private Integer cep;
 }

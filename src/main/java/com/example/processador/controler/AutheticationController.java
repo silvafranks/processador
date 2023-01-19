@@ -6,15 +6,11 @@ import com.example.processador.config.RegisterRequest;
 import com.example.processador.config.authetication.AutheticationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/authentication")
 @AllArgsConstructor
-
 public class AutheticationController {
     private  final AutheticationService autheticationService;
 

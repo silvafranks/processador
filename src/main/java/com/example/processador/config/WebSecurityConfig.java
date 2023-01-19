@@ -26,7 +26,13 @@ public class WebSecurityConfig {
         http.csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .antMatchers("/h2-console/**", "/authentication/**")
+                .antMatchers("/h2-console/**", "/authentication/**",
+                        "/swagger-ui.html/**",
+                        "/swagger**",
+                        "/swagger-resources/**",
+                        "/swagger-ui.html**",
+                        "/v3/api-docs/**",
+                        "/swagger-ui/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -35,10 +41,9 @@ public class WebSecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(autheticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .headers().frameOptions().sameOrigin()
-                .and();
-
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+//                .headers().frameOptions().sameOrigin()
+//                .and();
 
         return http.build();
     }
@@ -66,8 +71,8 @@ public class WebSecurityConfig {
 //                .passwordEncoder(bCryptPasswordEncoder());
 //    }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 }
