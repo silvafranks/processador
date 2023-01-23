@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface ContaRepository extends JpaRepository<Conta,Integer> {
+
     @Query("select c from Conta c where c.cliente = ?1")
     List<Conta> findByCliente(Cliente cliente);
 

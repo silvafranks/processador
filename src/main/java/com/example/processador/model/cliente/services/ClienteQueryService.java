@@ -30,7 +30,6 @@ public class ClienteQueryService {
     @Autowired
     private AuthenticationUtils authenticationUtils;
 
-
     public List<Cliente> allClientes() {
         List<Cliente> all = clienteRepository.findAll();
         return all;
@@ -43,14 +42,4 @@ public class ClienteQueryService {
         return byId;
     }
 
-//    public Patrimonio BuscarPatrimonios(Integer idCliente) {
-//
-//        Optional<Cliente> cliente = clienteRepository.findById(idCliente);
-//
-//        Patrimonio patrimonio = cliente.get().getPatrimonio();
-//
-//        System.out.println(patrimonio);
-//
-//        return patrimonio;
-//    }
 }

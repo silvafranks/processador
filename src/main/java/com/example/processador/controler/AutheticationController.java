@@ -25,4 +25,6 @@ public class AutheticationController {
         return ResponseEntity.ok(autheticationService.autheticate(request));
 
     }
+
+
 }
